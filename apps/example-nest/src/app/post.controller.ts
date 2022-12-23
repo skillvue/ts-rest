@@ -7,6 +7,7 @@ const s = initNestServer(apiBlog);
 type ControllerShape = typeof s.controllerShape;
 type RouteShape = typeof s.routeShapes;
 
+// You can implement the ControllerShape interface to ensure type safety
 @Controller()
 export class PostController implements ControllerShape {
   constructor(private readonly postService: PostService) {}
