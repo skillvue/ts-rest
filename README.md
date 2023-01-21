@@ -1,22 +1,20 @@
 # ts-rest
 
 <p align="center">
- <img src="https://avatars.githubusercontent.com/u/109956939?s=400&u=8bf67b1281da46d64eab85f48255cd1892bf0885&v=4" height=150 />
+ <img src="https://avatars.githubusercontent.com/u/109956939?s=400&u=8bf67b1281da46d64eab85f48255cd1892bf0885&v=4" height="150"></img>
 </p>
 
  <p align="center">RPC-like client and server helpers for a magical end to end typed experience</p> 
  <p align="center">
    <a href="https://www.npmjs.com/package/@ts-rest/core">
-   <img src="https://img.shields.io/npm/v/@ts-rest/core.svg" alt="langue typescript">
+   <img src="https://img.shields.io/npm/v/@ts-rest/core.svg" alt="langue typescript"/>
    </a>
-   <a href="https://www.npmjs.com/package/@ts-rest/core">
-   <img alt="npm" src="https://img.shields.io/npm/dw/@ts-rest/core">
-   </a>
-     <a href="https://github.com/ts-rest/ts-rest/blob/main/LICENSE">
-    <img alt="GitHub" src="https://img.shields.io/github/license/ts-rest/ts-rest">   
-   </a>
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/bundlephobia/minzip/@ts-rest/core?label=%40ts-rest%2Fcore">
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/discord/1055855205960392724">
+   <a href="https://www.npmjs.com/package/@ts-rest/core"/>
+   <img alt="npm" src="https://img.shields.io/npm/dw/@ts-rest/core"/>
+     <a href="https://github.com/ts-rest/ts-rest/blob/main/LICENSE"></a>
+    <img alt="GitHub" src="https://img.shields.io/github/license/ts-rest/ts-rest"/> 
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/bundlephobia/minzip/@ts-rest/core?label=%40ts-rest%2Fcore"/>
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/discord/1055855205960392724"/>
    
  </p>
 
@@ -52,8 +50,8 @@ yarn add @ts-rest/open-api
 
 Create a contract, implement it on your server then consume it in your client. Incrementally adopt, trial it with your team, then get shipping faster.
 
-<div align="center" style="margin:50px">
-<h2>👉 Read more on the official <a href="https://ts-rest.com/docs/quickstart?utm_source=github&utm_medium=documentation&utm_campaign=readme">Quickstart Guide 👈</h2>
+<div align="center" style={{margin: "50px"}}>
+<h2>👉 Read more on the official <a href="https://ts-rest.com/docs/quickstart?utm_source=github&utm_medium=documentation&utm_campaign=readme">Quickstart Guide</a>👈</h2>
 </div>
 
 ## Star History
