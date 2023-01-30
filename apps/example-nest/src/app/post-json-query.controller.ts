@@ -1,9 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { apiBlog } from '@ts-rest/example-contracts';
 import {
-  Api,
   TsRestRequest,
-  JsonQuery,
+  TsRest,
   nestControllerContract,
   NestControllerInterface,
   NestRequestShapes,
@@ -24,14 +23,14 @@ const c = nestControllerContract({
 });
 type RequestShapes = NestRequestShapes<typeof c>;
 
-@JsonQuery()
+@TsRest({ jsonQuery: true })
 @Controller()
 export class PostJsonQueryController
   implements NestControllerInterface<typeof c>
 {
   constructor(private readonly postService: PostService) {}
 
-  @Api(c.getPosts)
+  @TsRest(c.getPosts)
   async getPosts(
     @TsRestRequest()
     { query: { take, skip, search } }: RequestShapes['getPosts']
