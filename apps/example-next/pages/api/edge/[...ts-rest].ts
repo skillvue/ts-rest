@@ -1,4 +1,4 @@
-import { createNextHandler } from '@ts-rest/serverless/next-edge';
+import { createNextHandler } from '@ts-rest/serverless/next';
 import { testContract } from '../../../contracts/test-contract';
 
 export const config = {
@@ -23,5 +23,6 @@ export default createNextHandler(
     basePath: '/api/edge',
     jsonQuery: true,
     responseValidation: true,
+    handlerType: 'pages-router-edge',
   },
 );
