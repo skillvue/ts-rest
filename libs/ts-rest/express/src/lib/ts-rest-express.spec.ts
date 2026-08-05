@@ -2,20 +2,42 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   initContract,
-  ResponseValidationError,
   TsRestResponseError,
+  TsRestResponseValidationError,
 } from '@ts-rest/core';
 import * as supertest from 'supertest';
 import * as express from 'express';
 import { z } from 'zod';
 import { createExpressEndpoints, initServer } from './ts-rest-express';
 import * as multer from 'multer';
-import {
-  CombinedRequestValidationErrorSchema,
-  DefaultRequestValidationErrorSchema,
-  RequestValidationError,
-} from './request-validation-error';
+import { RequestValidationError } from './request-validation-error';
 import * as v from 'valibot';
+
+/**
+ * ts-rest no longer ships zod schemas for the request-validation error body: the error is
+ * validator-agnostic now (`StandardSchemaError`), so describing it is the consumer's job — "bring your
+ * own schema". These replace the removed `Default`/`CombinedRequestValidationErrorSchema` and double as
+ * the worked example of the migration.
+ *
+ * `default` responds with the offending `StandardSchemaError` alone; `combined` responds with all four
+ * slots — see `requestValidationErrorHandler` in ./ts-rest-express.
+ */
+const DefaultRequestValidationErrorSchema = z.object({
+  name: z.string(),
+  issues: z.array(
+    z.object({
+      message: z.string(),
+      path: z.array(z.any()).optional(),
+    }),
+  ),
+});
+
+const CombinedRequestValidationErrorSchema = z.object({
+  pathParameterErrors: DefaultRequestValidationErrorSchema.nullable(),
+  headerErrors: DefaultRequestValidationErrorSchema.nullable(),
+  queryParameterErrors: DefaultRequestValidationErrorSchema.nullable(),
+  bodyErrors: DefaultRequestValidationErrorSchema.nullable(),
+});
 
 const upload = multer();
 
@@ -148,7 +170,7 @@ describe('ts-rest-express', () => {
         res: express.Response,
         next: express.NextFunction,
       ) => {
-        if (err instanceof ResponseValidationError) {
+        if (err instanceof TsRestResponseValidationError) {
           res.status(500).send('Response validation failed');
           return;
         }
@@ -456,7 +478,7 @@ describe('ts-rest-express', () => {
         res: express.Response,
         next: express.NextFunction,
       ) => {
-        if (err instanceof ResponseValidationError) {
+        if (err instanceof TsRestResponseValidationError) {
           res.status(500).send('Response validation failed');
           return;
         }

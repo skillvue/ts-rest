@@ -1,9 +1,31 @@
 import { initContract, TsRestResponseError } from '@ts-rest/core';
-import { initServer, RequestValidationErrorSchema } from './ts-rest-fastify';
+import { initServer } from './ts-rest-fastify';
 import { z } from 'zod';
 import fastify from 'fastify';
 import * as supertest from 'supertest';
 import * as v from 'valibot';
+
+/**
+ * ts-rest no longer ships a schema for the request-validation error body: the error is
+ * validator-agnostic now (`StandardSchemaError`), so describing it is the consumer's job — "bring your
+ * own schema". This is that schema, and it doubles as the worked example of the migration.
+ */
+const StandardSchemaErrorSchema = z.object({
+  name: z.string(),
+  issues: z.array(
+    z.object({
+      message: z.string(),
+      path: z.array(z.any()).optional(),
+    }),
+  ),
+});
+
+const RequestValidationErrorSchema = z.object({
+  pathParameterErrors: StandardSchemaErrorSchema.nullable(),
+  headerErrors: StandardSchemaErrorSchema.nullable(),
+  queryParameterErrors: StandardSchemaErrorSchema.nullable(),
+  bodyErrors: StandardSchemaErrorSchema.nullable(),
+});
 
 declare module 'fastify' {
   interface FastifyReply {

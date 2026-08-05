@@ -14,6 +14,11 @@ if (swcJestConfig.swcrc === undefined) {
 }
 
 export default {
+  /**
+   * Express 5's router (`router@2`) uses `setImmediate`, which the default jsdom environment does not
+   * provide — without this the non-json response test dies on `setImmediate is not defined`.
+   */
+  testEnvironment: 'node',
   displayName: 'ts-rest-express',
   preset: '../../../jest.preset.js',
   transform: {

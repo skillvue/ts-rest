@@ -1,5 +1,6 @@
 import {
   initContract,
+  StandardSchemaError,
   TsRestRequestValidationError,
   TsRestResponseError,
   TsRestResponseValidationError,
@@ -422,10 +423,16 @@ describe('createNextRouter', () => {
 
       expect(errorHandler).not.toHaveBeenCalled();
       expect(mockRes.status).toHaveBeenCalledWith(400);
-      expect(jsonMock.mock.calls[0][0]).toStrictEqual({
-        data: expect.any(Object),
-        success: true,
-      });
+
+      /**
+       * Without `throwRequestValidation` the offending `StandardSchemaError` is sent as the body.
+       * (This used to be asserted through the shipped `RequestValidationErrorSchema`, which v4 removed
+       * along with the zod coupling.)
+       */
+      const errorBody = jsonMock.mock.calls[0][0];
+      expect(errorBody).toBeInstanceOf(StandardSchemaError);
+      expect(errorBody.name).toBe('ValidationError');
+      expect(errorBody.issues.length).toBeGreaterThan(0);
     });
   });
 

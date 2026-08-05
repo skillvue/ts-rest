@@ -8,7 +8,29 @@ import {
   fetchRequestHandler,
   tsr,
 } from './ts-rest-fetch';
-import { RequestValidationErrorSchema } from '../types';
+
+/**
+ * ts-rest no longer ships a schema for the request-validation error body: the error is
+ * validator-agnostic now (`StandardSchemaError`), so describing it is the consumer's job — "bring your
+ * own schema". This replaces the removed `RequestValidationErrorSchema`.
+ */
+const StandardSchemaErrorSchema = z.object({
+  name: z.string(),
+  issues: z.array(
+    z.object({
+      message: z.string(),
+      path: z.array(z.any()).optional(),
+    }),
+  ),
+});
+
+const RequestValidationErrorSchema = z.object({
+  message: z.literal('Request validation failed'),
+  pathParameterErrors: StandardSchemaErrorSchema.nullable(),
+  headerErrors: StandardSchemaErrorSchema.nullable(),
+  queryParameterErrors: StandardSchemaErrorSchema.nullable(),
+  bodyErrors: StandardSchemaErrorSchema.nullable(),
+});
 
 const c = initContract();
 
@@ -338,7 +360,7 @@ describe('fetchRequestHandler', () => {
 
     const response = await testFetchRequestHandler(request);
     const expectedResponse = new Response(
-      '{"message":"Request validation failed","pathParameterErrors":null,"headerErrors":null,"queryParameterErrors":{"issues":[{"code":"invalid_type","expected":"string","received":"undefined","path":["foo"],"message":"Required"}],"name":"ZodError"},"bodyErrors":null}',
+      '{"message":"Request validation failed","pathParameterErrors":null,"headerErrors":null,"queryParameterErrors":{"name":"ValidationError","issues":[{"expected":"string","code":"invalid_type","path":["foo"],"message":"Invalid input: expected string, received undefined"}]},"bodyErrors":null}',
       {
         status: 400,
         headers: {
