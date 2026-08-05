@@ -16,9 +16,6 @@ importers:
       '@actions/core':
         specifier: ^1.10.0
         version: 1.10.0
-      '@anatine/zod-openapi':
-        specifier: ^2.0.1
-        version: 2.0.1(openapi3-ts@2.0.2)(zod@4.3.6)
       '@azure/functions':
         specifier: ^4.5.0
         version: 4.5.0
@@ -580,15 +577,9 @@ importers:
 
   libs/ts-rest/open-api:
     dependencies:
-      '@anatine/zod-openapi':
-        specifier: ^1.12.0
-        version: 1.12.0(openapi3-ts@2.0.2)(zod@4.3.6)
       openapi3-ts:
         specifier: ^2.0.2
         version: 2.0.2
-      zod:
-        specifier: ^4.0.0
-        version: 4.3.6
 
   libs/ts-rest/react-query:
     dependencies:
@@ -710,18 +701,6 @@ packages:
   '@ampproject/remapping@2.2.1':
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
     engines: {node: '>=6.0.0'}
-
-  '@anatine/zod-openapi@1.12.0':
-    resolution: {integrity: sha512-ZdkmQFXdc2us0nTBPWiJ3joHxsZoc5G79hKB8QzUuo73zp2A4t4TlBmOjS+hJfMnTBATfJutrlN/wK4DUq6ztg==}
-    peerDependencies:
-      openapi3-ts: ^2.0.0 || ^3.0.0
-      zod: ^3.20.0
-
-  '@anatine/zod-openapi@2.0.1':
-    resolution: {integrity: sha512-ks13oMq3wKFobQ6W+C9h893b2kYAff4Giqwmr5gxgP1HyoBhM4Iub1Z/Q3x5EsAfqfTi8qEOBuqTf0Tnv10D2w==}
-    peerDependencies:
-      openapi3-ts: ^4.1.2
-      zod: ^3.20.0
 
   '@angular-devkit/core@15.2.4':
     resolution: {integrity: sha512-yl+0j1bMwJLKShsyCXw77tbJG8Sd21+itisPLL2MgEpLNAO252kr9zG4TLlFRJyKVftm2l1h78KjqvM5nbOXNg==}
@@ -10094,10 +10073,6 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
-  ts-deepmerge@4.0.0:
-    resolution: {integrity: sha512-IrjjAwfM/J6ajWv5wDRZBdpVaTmuONJN1vC85mXlWVPXKelouLFiqsjR7m0h245qY6zZEtcDtcOTc4Rozgg1TQ==}
-    engines: {node: '>=14'}
-
   ts-deepmerge@6.2.0:
     resolution: {integrity: sha512-2qxI/FZVDPbzh63GwWIZYE7daWKtwXZYuyc8YNq0iTmMUwn4mL0jRLsp6hfFlgbdRSR4x2ppe+E86FnvEpN7Nw==}
     engines: {node: '>=14.13.1'}
@@ -10486,7 +10461,7 @@ packages:
 
   uuid@3.4.0:
     resolution: {integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==}
-    deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   uuid@8.3.2:
@@ -11113,18 +11088,6 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.2
       '@jridgewell/trace-mapping': 0.3.18
-
-  '@anatine/zod-openapi@1.12.0(openapi3-ts@2.0.2)(zod@4.3.6)':
-    dependencies:
-      openapi3-ts: 2.0.2
-      ts-deepmerge: 4.0.0
-      zod: 4.3.6
-
-  '@anatine/zod-openapi@2.0.1(openapi3-ts@2.0.2)(zod@4.3.6)':
-    dependencies:
-      openapi3-ts: 2.0.2
-      ts-deepmerge: 6.2.0
-      zod: 4.3.6
 
   '@angular-devkit/core@15.2.4(chokidar@3.5.3)':
     dependencies:
@@ -23267,8 +23230,6 @@ snapshots:
   ts-api-utils@2.1.0(typescript@5.2.2):
     dependencies:
       typescript: 5.2.2
-
-  ts-deepmerge@4.0.0: {}
 
   ts-deepmerge@6.2.0: {}
 

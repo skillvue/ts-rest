@@ -6,5 +6,13 @@
     "types": []
   },
   "include": ["**/*.ts"],
-  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+  "exclude": [
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    // Spec-only, but not named `*.spec.ts`, so it has to be excluded by hand: it is the one file in this
+    // package that imports `zod`, and shipping it would put zod back in the published surface of an
+    // otherwise validator-agnostic package.
+    "src/lib/parsers/test-helpers.ts"
+  ]
 }

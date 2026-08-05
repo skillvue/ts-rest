@@ -13,12 +13,10 @@ import {
   ServerInferResponses,
   TsRestResponseError,
   validateResponse,
-  StandardSchemaError,
   validateMultiSchemaObject,
   TsRestRequestValidationError,
 } from '@ts-rest/core';
 import { getPathParamsFromArray } from './path-utils';
-import { type ZodError } from 'zod';
 
 /**
  * Re-exported from `@ts-rest/core` rather than redeclared: this package used to define its own class of
@@ -26,20 +24,6 @@ import { type ZodError } from 'zod';
  * imported the symbol from `@ts-rest/core` — two identically-named, unrelated classes.
  */
 export { TsRestRequestValidationError };
-
-/**
- * @deprecated use TsRestRequestValidationError instead, this will be removed in v4
- */
-export class RequestValidationError extends Error {
-  constructor(
-    public pathParams: ZodError | null,
-    public headers: ZodError | null,
-    public query: ZodError | null,
-    public body: ZodError | null,
-  ) {
-    super('[ts-rest] request validation failed');
-  }
-}
 
 type AppRouteImplementation<T extends AppRoute> = (
   args: ServerInferRequest<T, NextApiRequest['headers']> & {
@@ -328,10 +312,10 @@ const handlerFactory = (
       ) {
         if (throwRequestValidation) {
           throw new TsRestRequestValidationError(
-            (pathParamsResult.error as StandardSchemaError) || null,
-            (headersResult.error as StandardSchemaError) || null,
-            (queryResult.error as StandardSchemaError) || null,
-            (bodyResult.error as StandardSchemaError) || null,
+            pathParamsResult.error || null,
+            headersResult.error || null,
+            queryResult.error || null,
+            bodyResult.error || null,
           );
         }
 

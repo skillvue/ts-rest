@@ -8,7 +8,7 @@ import {
 } from '..';
 import { ApiFetcherArgs, initClient, getCompleteUrl } from './client';
 import { Equal, Expect } from './test-helpers';
-import { z, ZodError } from 'zod';
+import { z } from 'zod';
 import * as v from 'valibot';
 
 const c = initContract();

@@ -9,7 +9,6 @@ import {
   HTTPStatusCode,
   TsRestResponseError,
   validateIfSchema,
-  StandardSchemaError,
   validateMultiSchemaObject,
 } from '@ts-rest/core';
 import { Router, withParams, cors } from 'itty-router';
@@ -102,10 +101,10 @@ const validateRequest = <TPlatformArgs, TRequestExtension>(
     bodyResult.error
   ) {
     throw new TsRestServerlessRequestValidationError(
-      (paramsResult.error as StandardSchemaError) || null,
-      (headersResult.error as StandardSchemaError) || null,
-      (queryResult.error as StandardSchemaError) || null,
-      (bodyResult.error as StandardSchemaError) || null,
+      paramsResult.error || null,
+      headersResult.error || null,
+      queryResult.error || null,
+      bodyResult.error || null,
     );
   }
 

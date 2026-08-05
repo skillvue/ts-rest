@@ -11,7 +11,6 @@ import {
   parseAsStandardSchema,
   validateIfSchema,
 } from './standard-schema-utils';
-import { StandardSchemaError } from './validation-error';
 
 export const isAppRouteResponse = (
   value: unknown,
@@ -69,7 +68,7 @@ export const validateResponse = ({
     if (responseValidation.error) {
       throw new TsRestResponseValidationError(
         appRoute,
-        responseValidation.error as StandardSchemaError,
+        responseValidation.error,
       );
     }
 

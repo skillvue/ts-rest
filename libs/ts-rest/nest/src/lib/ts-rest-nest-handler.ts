@@ -456,12 +456,7 @@ const validateResponse = (
   const responseValidation = validateIfSchema(body, responseStandardSchema);
 
   if (responseValidation.error) {
-    const { error } = responseValidation;
-
-    throw new TsRestResponseValidationError(
-      appRoute,
-      error as StandardSchemaError,
-    );
+    throw new TsRestResponseValidationError(appRoute, responseValidation.error);
   }
 
   return {

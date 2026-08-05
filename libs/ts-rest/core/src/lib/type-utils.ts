@@ -1,4 +1,3 @@
-import type { z } from 'zod';
 import { ContractNoBodyType, ContractNullType, ContractPlainType } from './dsl';
 import { StandardSchemaV1 } from './standard-schema';
 
@@ -52,22 +51,21 @@ type ExcludeKeysWithoutTypeOf<T, V> = {
 export type Without<T, V> = Pick<T, ExcludeKeysWithTypeOf<T, V>>;
 export type With<T, V> = Pick<T, ExcludeKeysWithoutTypeOf<T, V>>;
 
+/**
+ * Both helpers used to carry a `T extends z.ZodTypeAny ? z.output<T>` arm ahead of the Standard Schema
+ * one, to keep inferring from **zod 3** schemas, which predate Standard Schema and so are invisible to
+ * `StandardSchemaV1`. v4 requires zod 4, whose schemas expose `~standard`, so the arm is unreachable
+ * and `@ts-rest/core` no longer needs to know that zod exists.
+ */
 export type SchemaOutputOrType<T> = T extends ContractNullType
   ? null
   : T extends ContractNoBodyType
   ? undefined
   : T extends ContractPlainType<infer U>
   ? U
-  : // @deprecated - remove in next major version when zod (standard schema) is required
-  T extends z.ZodTypeAny
-  ? z.output<T>
   : T extends StandardSchemaV1
   ? StandardSchemaV1.InferOutput<T>
   : T;
-
-// TODO: remove in next major version
-/** @deprecated use SchemaOutputOrType */
-export type ZodInferOrType<T> = SchemaOutputOrType<T>;
 
 export type SchemaInputOrType<T> = T extends ContractNullType
   ? null
@@ -75,16 +73,9 @@ export type SchemaInputOrType<T> = T extends ContractNullType
   ? undefined
   : T extends ContractPlainType<infer U>
   ? U
-  : // @deprecated - remove in next major version when zod (standard schema) is required
-  T extends z.ZodTypeAny
-  ? z.input<T>
   : T extends StandardSchemaV1
   ? StandardSchemaV1.InferInput<T>
   : T;
-
-// TODO: remove in next major version
-/** @deprecated use SchemaInputOrType */
-export type ZodInputOrType<T> = SchemaInputOrType<T>;
 
 export type Merge<T, U> = Omit<T, keyof U> & U;
 

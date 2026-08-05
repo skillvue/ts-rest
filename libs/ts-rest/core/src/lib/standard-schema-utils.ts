@@ -1,4 +1,3 @@
-import { ZodError } from 'zod';
 import { StandardSchemaV1 } from './standard-schema';
 import { StandardSchemaError } from './validation-error';
 import { ContractAnyType } from './dsl';
@@ -57,7 +56,7 @@ export const validateMultiSchemaObject = (
   schemaObject: Record<string, ContractAnyType> | undefined,
 ): {
   value?: unknown;
-  error?: StandardSchemaError | ZodError;
+  error?: StandardSchemaError;
   schemasUsed: Array<StandardSchemaV1<unknown, unknown>>;
 } => {
   const schema = parseAsStandardSchema(schemaObject);
@@ -209,7 +208,7 @@ export const validateAgainstStandardSchema = (
   }: {
     passThroughExtraKeys?: boolean;
   } = {},
-): { value?: unknown; error?: StandardSchemaError | ZodError } => {
+): { value?: unknown; error?: StandardSchemaError } => {
   const result = schema['~standard'].validate(data);
 
   if (result instanceof Promise) {
