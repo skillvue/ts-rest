@@ -3,8 +3,6 @@ import { StandardSchemaV1 } from './standard-schema';
 import { StandardSchemaError } from './validation-error';
 import { ContractAnyType } from './dsl';
 
-const VENDOR_STANDARD_SCHEMA = 'ts-rest-combined';
-
 /**
  * Type guard to check if the schema is a standard schema.
  *
@@ -142,55 +140,11 @@ export const validateMultiSchemaObject = (
 };
 
 /**
- * Combines two standard schemas into a single standard schema.
+ * Merges the record-style `headers` of a router and one of its routes.
  *
- * The combined schema will run the validation of both schemas and return the result of the first schema that
- * succeeds.
- *
- * If either schema fails, the combined schema will return the issues from both schemas.
- *
- * @param a - StandardSchemaV1<unknown, unknown>
- * @param b - StandardSchemaV1<unknown, unknown>
- * @returns StandardSchemaV1<unknown, unknown>
- */
-export const combineStandardSchemas = (
-  a: StandardSchemaV1<unknown, unknown>,
-  b: StandardSchemaV1<unknown, unknown>,
-): StandardSchemaV1<unknown, unknown> => {
-  const standardSchema: StandardSchemaV1<unknown, unknown>['~standard'] = {
-    vendor: VENDOR_STANDARD_SCHEMA,
-    version: 1,
-    validate: (input) => {
-      const result = a['~standard'].validate(input);
-      const result2 = b['~standard'].validate(input);
-
-      if (result instanceof Promise || result2 instanceof Promise) {
-        throw new Error('Schema validation must be synchronous');
-      }
-
-      // TODO: Agree on the behavior of this for standard schemas
-      if (result.issues || result2.issues) {
-        return {
-          issues: [...(result.issues || []), ...(result2.issues || [])],
-        };
-      }
-
-      return {
-        value: {
-          ...(result.value || {}),
-          ...(result2.value || {}),
-        },
-      };
-    },
-  };
-
-  return {
-    '~standard': standardSchema,
-  };
-};
-
-/**
- * Merges two header schemas together, these can either be legacy zod objects or objects containing standard schemas.
+ * Per-key replacement only: a route's entry replaces the base entry for that key, and there is no
+ * implicit combining of two schemas for the same header — which is why this is a plain spread and why
+ * `combineStandardSchemas` (dead since the record DSL landed) was removed.
  */
 export const mergeHeaderSchemasForRoute = (
   baseSchema: unknown,

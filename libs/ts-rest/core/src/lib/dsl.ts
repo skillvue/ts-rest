@@ -260,10 +260,8 @@ type ApplyOptions<
   }>;
 
 /**
- * This was needed as **for some reason** headers above end up being `unknown`, our
- * `MergeHeadersWithLegacySupport` function expends undefined, so we need to normalize it
- *
- * Can be moved in V4 when the legacy polyfill is removed
+ * This was needed as **for some reason** headers above end up being `unknown`, while `MergeHeaders`
+ * expects `undefined`, so we need to normalize it.
  */
 export type UnknownToUndefined<T> = unknown extends T
   ? T extends unknown
