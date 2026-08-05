@@ -167,7 +167,22 @@ const traversedPathsToOpenApi = (
         ? extractReferenceSchemas(responseSchemaObject, referenceSchemas)
         : null;
 
+      /**
+       * `description` is REQUIRED on an OpenAPI 3 Response Object, so it always has to be emitted —
+       * falling back to the status code, as it has since the field was introduced. The v4 migration
+       * dropped it, which produced invalid documents.
+       */
+      const description =
+        response &&
+        typeof response === 'object' &&
+        'description' in response &&
+        typeof response.description === 'string' &&
+        response.description
+          ? response.description
+          : statusCode;
+
       responses[statusCode] = {
+        description,
         ...(responseSchemaObjectWithReferences
           ? {
               content: {

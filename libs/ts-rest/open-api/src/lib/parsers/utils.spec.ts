@@ -1,7 +1,17 @@
 import { SchemaObject } from 'openapi3-ts';
 import { schemaObjectToParameters } from './utils';
 import { z } from 'zod';
-import { generateSchema } from '@anatine/zod-openapi';
+
+/**
+ * zod 4 generates JSON Schema itself; `@anatine/zod-openapi`'s `generateSchema` is a zod 3 library and
+ * throws on the zod 4 schemas this repo pins.
+ */
+const generateSchema = (schema: z.ZodType): SchemaObject =>
+  z.toJSONSchema(schema, {
+    target: 'openapi-3.0',
+    io: 'input',
+    unrepresentable: 'any',
+  }) as SchemaObject;
 
 describe('utils', () => {
   describe('schemaObjectToParameters', () => {

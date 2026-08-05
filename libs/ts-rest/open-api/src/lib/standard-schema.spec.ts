@@ -1,7 +1,8 @@
 import * as v from 'valibot';
 import { initContract } from '@ts-rest/core';
 import { generateOpenApi, generateOpenApiAsync } from './ts-rest-open-api';
-import { VALIBOT_ASYNC } from './parsers/test-helpers';
+import { VALIBOT_ASYNC, ZOD_SYNC } from './parsers/test-helpers';
+import { z } from 'zod';
 
 const c = initContract();
 
@@ -457,5 +458,45 @@ describe('standard schema', () => {
         schema: { type: 'string' },
       },
     ]);
+  });
+});
+
+/**
+ * `description` is REQUIRED on an OpenAPI 3 Response Object. The v4 migration dropped it, so generated
+ * documents were invalid; nothing asserted the explicit-description branch, so this pins both. A
+ * response's description comes from the schema itself (zod's `.describe()`), not from the route DSL.
+ */
+describe('response description', () => {
+  const contract = c.router({
+    getPost: {
+      method: 'GET',
+      path: '/posts/:id',
+      responses: {
+        200: z.object({ title: z.string() }).describe('The post'),
+        404: z.object({ message: z.string() }),
+      },
+    },
+  });
+
+  it('emits a description for every response, falling back to the status code', () => {
+    const responses = generateOpenApi(
+      contract,
+      { info: { title: 'Blog API', version: '0.1' } },
+      { schemaTransformer: ZOD_SYNC },
+    ).paths['/posts/{id}'].get.responses as Record<
+      string,
+      { description?: unknown }
+    >;
+
+    expect(responses['200'].description).toEqual('The post');
+    expect(responses['404'].description).toEqual('404');
+
+    for (const [statusCode, response] of Object.entries(responses)) {
+      expect({ statusCode, description: response.description }).toEqual({
+        statusCode,
+        description: expect.any(String),
+      });
+      expect(response.description).not.toEqual('');
+    }
   });
 });

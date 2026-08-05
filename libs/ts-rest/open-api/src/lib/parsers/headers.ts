@@ -1,4 +1,4 @@
-import { AppRoute, isStandardSchema } from '@ts-rest/core';
+import { AppRoute, isStandardSchema, StandardSchemaV1 } from '@ts-rest/core';
 import {
   AsyncAndSyncHelper,
   GetAsyncFunction,
@@ -6,7 +6,7 @@ import {
   SchemaTransformerAsync,
   SchemaTransformerSync,
 } from '../types';
-import { ParameterObject } from 'openapi3-ts';
+import { ParameterObject, SchemaObject } from 'openapi3-ts';
 import { schemaObjectToParameters, schemaToParameter } from './utils';
 
 type GetHeaderParameterHelper = AsyncAndSyncHelper<
@@ -23,6 +23,30 @@ type GetHeaderParameterHelper = AsyncAndSyncHelper<
   },
   Array<ParameterObject>
 >;
+
+/**
+ * Turn one entry of the record-style `headers` DSL into a Parameter Object.
+ *
+ * A per-header schema is a scalar (`z.string()`), not an object, so `schemaObjectToParameters` — which
+ * only walks `type: 'object'` properties — returns nothing for it and the header vanishes from the
+ * generated document. The header name comes from the record key, and "required" is decided by asking the
+ * schema whether it accepts `undefined`.
+ */
+const subSchemaToHeaderParameter = (
+  transformedSchema: SchemaObject,
+  subSchema: StandardSchemaV1,
+  key: string,
+): ParameterObject => {
+  const validateEmptyResult = subSchema['~standard'].validate(undefined);
+
+  if (validateEmptyResult instanceof Promise) {
+    throw new Error('Schema validation must be synchronous');
+  }
+
+  const isRequired = Boolean(validateEmptyResult.issues?.length);
+
+  return schemaToParameter(transformedSchema, 'header', isRequired, key, false);
+};
 
 const syncFunc: GetSyncFunction<GetHeaderParameterHelper> = ({
   transformSchema,
@@ -73,10 +97,12 @@ const syncFunc: GetSyncFunction<GetHeaderParameterHelper> = ({
       });
 
       if (!transformedSchema) {
-        return [];
+        continue;
       }
 
-      parameters.push(...schemaObjectToParameters(transformedSchema, 'header'));
+      parameters.push(
+        subSchemaToHeaderParameter(transformedSchema, subSchema, key),
+      );
     }
   }
 
@@ -135,22 +161,9 @@ const asyncFunc: GetAsyncFunction<GetHeaderParameterHelper> = async ({
         continue;
       }
 
-      const validateEmptyResult = subSchema['~standard'].validate(undefined);
-
-      if (validateEmptyResult instanceof Promise) {
-        throw new Error('Schema validation must be synchronous');
-      }
-
-      const isRequired = Boolean(validateEmptyResult.issues?.length);
-
-      const asParameter = schemaToParameter(
-        transformedSchema,
-        'header',
-        isRequired,
-        key,
-        false,
+      parameters.push(
+        subSchemaToHeaderParameter(transformedSchema, subSchema, key),
       );
-      parameters.push(asParameter);
     }
   }
 

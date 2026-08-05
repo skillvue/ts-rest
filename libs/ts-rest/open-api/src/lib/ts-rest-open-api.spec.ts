@@ -1,8 +1,25 @@
 import { initContract, type AppRoute } from '@ts-rest/core';
 import { z } from 'zod';
-import { generateOpenApi } from './ts-rest-open-api';
-import { extendApi } from '@anatine/zod-openapi';
+import { generateOpenApi as generateOpenApiWithTransformer } from './ts-rest-open-api';
+import { ZOD_SYNC } from './parsers/test-helpers';
 import { SecurityRequirementObject, type OperationObject } from 'openapi3-ts';
+
+type GenerateOpenApiOptions = Parameters<typeof generateOpenApiWithTransformer>[2];
+
+/**
+ * `schemaTransformer` is mandatory since v4 (the zod-3 default was removed — bring your own). This suite
+ * is about the generated document, not about transformer wiring, so it supplies the zod one once here.
+ */
+const generateOpenApi = (
+  router: Parameters<typeof generateOpenApiWithTransformer>[0],
+  apiDoc: Parameters<typeof generateOpenApiWithTransformer>[1],
+  options: Omit<GenerateOpenApiOptions, 'schemaTransformer'> &
+    Partial<Pick<GenerateOpenApiOptions, 'schemaTransformer'>> = {},
+) =>
+  generateOpenApiWithTransformer(router, apiDoc, {
+    schemaTransformer: ZOD_SYNC,
+    ...options,
+  });
 
 const c = initContract();
 
@@ -117,7 +134,7 @@ const router = c.router({
     method: 'POST',
     path: '/media-examples',
     query: z.object({
-      foo: extendApi(z.string(), {
+      foo: (z.string()).meta({
         mediaExamples: {
           one: { value: 'foo' },
           two: { value: 'bar' },
@@ -126,14 +143,14 @@ const router = c.router({
     }),
     summary: 'Examples API',
     description: `Check that examples can be added to body and response types`,
-    body: extendApi(z.object({ id: z.string() }), {
+    body: (z.object({ id: z.string() })).meta({
       mediaExamples: {
         one: { value: { id: 'foo' } },
         two: { value: { id: 'bar' } },
       },
     }),
     responses: {
-      200: extendApi(z.object({ id: z.string() }), {
+      200: (z.object({ id: z.string() })).meta({
         mediaExamples: {
           three: { value: { id: 'foo' } },
           four: { value: { id: 'bar' } },
@@ -360,7 +377,7 @@ const expectedApiDoc = {
                   description: 'Post comments',
                   properties: {
                     comments: {
-                      oneOf: [
+                      anyOf: [
                         {
                           items: {
                             properties: {
@@ -396,8 +413,13 @@ const expectedApiDoc = {
                         },
                       ],
                     },
+                    /**
+                     * `z.boolean().transform(String)`: the transformer documents the input side
+                     * uniformly (see ZOD_SYNC), so this reads `boolean` rather than the `string` the
+                     * client actually receives. The removed zod-3 default reported the output side here.
+                     */
                     booleanString: {
-                      type: 'string',
+                      type: 'boolean',
                     },
                   },
                   required: ['booleanString', 'comments'],
@@ -480,7 +502,7 @@ const expectedApiDoc = {
           content: {
             'application/json': {
               schema: {
-                readOnly: true,
+                not: {},
               },
             },
           },
@@ -1147,14 +1169,11 @@ describe('ts-rest-open-api', () => {
     });
 
     it('should extract references by title', () => {
-      const entity = extendApi(
-        z.object({
+      const entity = (z.object({
           file: z.string(),
-        }),
-        {
+        })).meta({
           title: 'Body',
-        },
-      );
+        },);
       const routerWithTransform = c.router({
         formEndpoint: {
           method: 'PUT',
@@ -1224,22 +1243,16 @@ describe('ts-rest-open-api', () => {
     });
 
     it('should extract nested references by title', () => {
-      const child = extendApi(
-        z.object({
+      const child = (z.object({
           file: z.string(),
-        }),
-        {
+        })).meta({
           title: 'Child',
-        },
-      );
-      const parent = extendApi(
-        z.object({
+        },);
+      const parent = (z.object({
           child: child,
-        }),
-        {
+        })).meta({
           title: 'Parent',
-        },
-      );
+        },);
       const routerWithTransform = c.router({
         formEndpoint: {
           method: 'PUT',
@@ -1323,23 +1336,17 @@ describe('ts-rest-open-api', () => {
         formEndpoint: {
           method: 'PUT',
           path: '/title',
-          body: extendApi(
-            z.object({
+          body: (z.object({
               file: z.string(),
-            }),
-            {
+            })).meta({
               title: 'Body',
-            },
-          ),
+            },),
           responses: {
-            200: extendApi(
-              z.object({
+            200: (z.object({
                 otherFile: z.string(),
-              }),
-              {
+              })).meta({
                 title: 'Body',
-              },
-            ),
+              },),
           },
         },
       });
