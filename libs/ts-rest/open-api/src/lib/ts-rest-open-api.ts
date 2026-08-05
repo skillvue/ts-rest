@@ -38,6 +38,8 @@ declare module 'openapi3-ts' {
  * @param options.setOperationId - Whether to set operation IDs (true, false, or 'concatenated-path')
  * @param options.jsonQuery - Enable JSON query parameters, [see](/docs/open-api#json-query-params)
  * @param options.operationMapper - Function to customize OpenAPI operations. Receives the operation object, app route, and operation ID
+ * @param options.schemaTransformer - Required. There is no default: the generator is validator-agnostic,
+ *   so it cannot know how to turn your schemas into JSON Schema. See the migration guide.
  * @returns OpenAPI specification object
  */
 export function generateOpenApi(
@@ -76,7 +78,8 @@ export function generateOpenApi(
  * @param options.setOperationId - Whether to set operation IDs (true, false, or 'concatenated-path')
  * @param options.jsonQuery - Enable JSON query parameters, [see](/docs/open-api#json-query-params)
  * @param options.operationMapper - Function to customize OpenAPI operations. Receives the operation object, app route, and operation ID
- * @param options.schemaTransformer - Custom schema transformer function. Defaults to ANATINE_ZOD_OPENAPI_SCHEMA_TRANSFORMER
+ * @param options.schemaTransformer - Required. There is no default: the generator is validator-agnostic,
+ *   so it cannot know how to turn your schemas into JSON Schema. See the migration guide.
  */
 export async function generateOpenApiAsync(
   router: AppRouter,

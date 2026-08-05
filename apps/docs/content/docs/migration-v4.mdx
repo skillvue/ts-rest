@@ -1,0 +1,313 @@
+---
+title: Migrating to v4
+description: Every breaking change between ts-rest 3.x and 4.0, with before/after code for each.
+
+---
+
+## What changed, in one sentence
+
+ts-rest no longer knows what Zod is. Validation now runs through
+[Standard Schema](https://github.com/standard-schema/standard-schema), so **Zod 4, Valibot, ArkType, or no
+validator at all** are equally supported — and Zod 3, which predates that interface, is not supported.
+
+Two other changes are large enough to plan for: the `headers` DSL is now a **record keyed by header name**,
+and `@ts-rest/open-api` requires you to **supply a schema transformer**.
+
+> All eleven `@ts-rest/*` packages are versioned in lock-step, so every one of them goes to `4.0.0` — even
+> the ones with no breaking change of their own (`react-query`, `react-query-v5`, `solid-query`,
+> `vue-query`). Bumping one means bumping all.
+
+## Upgrade checklist
+
+1. Upgrade your validator to **Zod 4** — or adopt Valibot / ArkType. `zod` is no longer a peer dependency
+   of any ts-rest package, so **add it to your own `dependencies` explicitly**; it will not arrive
+   transitively.
+2. Rewrite every `headers: z.object({…})` and `baseHeaders: z.object({…})` into the per-header record form.
+3. Pass a `schemaTransformer` to `generateOpenApi` / `generateOpenApiAsync`.
+4. Update request/response validation-error handling to `StandardSchemaError` — flat `.issues`, no
+   `.flatten()` — and to the renamed error classes.
+5. Replace the removed Zod helpers (`checkZodSchema`, `isZodType`, `zodMerge`, `ZodErrorSchema`, …) with the
+   Standard Schema helpers.
+6. **Nest only:** delete all `initNestServer` / `@Api` / `@TsRest` / `@TsRestRequest()` usage and move to
+   `@TsRestHandler` + `tsRestHandler`.
+7. Rename the type imports: `ZodInferOrType` → `SchemaOutputOrType`, `ZodInputOrType` →
+   `SchemaInputOrType`, `OverrideableClientArgs` → `OverridableClientArgs`.
+8. Retest client response parsing for `c.noBody()` routes and for numeric / coerced path params, and
+   regenerate your OpenAPI document and diff it.
+
+---
+
+## 1. Zod 3 → any Standard Schema validator
+
+Most contract code is untouched by this: Zod 4 is still `import { z } from 'zod'`, and
+`z.object({ … })` still reads the same. What changes is that ts-rest validates through the `~standard`
+property a schema exposes, rather than calling Zod's own API.
+
+Two consequences worth knowing before you start:
+
+- **Validation is synchronous.** ts-rest throws `Schema validation must be synchronous` if a schema returns
+  a Promise. Async refinements (`z.string().refine(async …)`) will not work.
+- **Input vs Output is respected.** Clients send a schema's *input* type; servers receive its *output*
+  type. With `.transform()` or `z.coerce`, those differ — and now they differ correctly on both sides.
+
+### Removed helpers
+
+`libs/ts-rest/core/src/lib/zod-utils.ts` is gone, and with it these exports from `@ts-rest/core`:
+
+| Removed | Replacement |
+|---|---|
+| `checkZodSchema` | `validateIfSchema` / `validateAgainstStandardSchema` |
+| `isZodType`, `isZodObject`, `isZodObjectStrict` | `isStandardSchema` / `parseAsStandardSchema` |
+| `extractZodObjectShape`, `zodMerge` | no equivalent — header merging is now a plain object spread |
+| `zodErrorResponse`, `ZodErrorSchema` | build your own from `StandardSchemaError` |
+
+### If you use no validator at all
+
+This is now a supported configuration, not an accident. Declare types with `c.type<T>()` and ts-rest gives
+you end-to-end type safety with zero runtime validation.
+
+```ts
+const contract = c.router({
+  getPost: {
+    method: 'GET',
+    path: '/posts/:id',
+    responses: { 200: c.type<Post>() },
+  },
+});
+```
+
+---
+
+## 2. The `headers` DSL is a record
+
+This is the most invasive change to contract authoring. `headers` and `baseHeaders` went from *one schema
+over the whole headers object* to *a record keyed by header name*.
+
+```diff
+ getPosts: {
+   method: 'GET',
+   path: '/posts',
+-  headers: z.object({
+-    'x-pagination': z.coerce.number().optional(),
+-  }),
++  headers: {
++    'x-pagination': z.coerce.number().optional(),
++  },
+ },
+
+ // router options
+-{ baseHeaders: z.object({ 'x-api-key': z.string() }) }
++{ baseHeaders: { 'x-api-key': z.string() } }
+```
+
+The mechanical rule is: drop the `z.object(` wrapper and its closing paren, keep the key/value pairs.
+
+What the new form buys you, and what to watch for:
+
+- **Per-key replacement.** A route's `headers` entry replaces the base entry for the same key. There is no
+  implicit AND-combining of two schemas for one header — if you need both constraints, write one schema
+  that expresses both.
+- **Unsetting an inherited header.** Set the key to `null` to remove a `baseHeaders` entry for one route:
+  `headers: { 'x-api-key': null }`.
+- **Header keys are lowercased.**
+- **Per-header errors.** Validation runs each header against its own schema and re-keys the issues by
+  header name, so a failure tells you *which* header was wrong. Passing something that is not a schema for
+  a key now throws `Invalid schema provided for header <key>`.
+- The mixed-types guard message changed from `'Cannot mix plain object types with Zod objects for headers'`
+  to `'Cannot mix plain object types with StandardSchemaV1 objects for headers'`.
+
+---
+
+## 3. `@ts-rest/open-api`: `schemaTransformer` is required
+
+The generator can no longer turn your schemas into JSON Schema by itself — being validator-agnostic means
+it does not know what your schemas are. `options` and its `schemaTransformer` are now **required**.
+
+```diff
+-const document = generateOpenApi(contract, { info: { title: 'API', version: '1.0.0' } });
++const document = generateOpenApi(contract, { info: { title: 'API', version: '1.0.0' } }, {
++  schemaTransformer: ZOD_TRANSFORMER,
++});
+```
+
+For Zod 4, the transformer is a thin wrapper over Zod's own JSON Schema support — `@anatine/zod-openapi` is
+a Zod 3 library and **throws on Zod 4 schemas**, so do not reach for it:
+
+```ts
+import { z } from 'zod';
+import { isStandardSchema } from '@ts-rest/core';
+import type { SchemaTransformerSync } from '@ts-rest/open-api';
+
+const ZOD_TRANSFORMER: SchemaTransformerSync = ({ schema }) => {
+  if (!isStandardSchema(schema) || schema['~standard'].vendor !== 'zod') {
+    return null;
+  }
+
+  return z.toJSONSchema(schema as z.ZodType, {
+    target: 'openapi-3.0',
+    io: 'input',
+    unrepresentable: 'any',
+  }) as ReturnType<SchemaTransformerSync>;
+};
+```
+
+Return `null` for anything you do not handle — the transformer is called for *every* schema (body,
+response, query, path param, header), and the `args` it receives tell you which (`type`, `appRoute`, `id`,
+`concatenatedPath`), so you can special-case per position.
+
+A note on `io`: Zod emits a *different* JSON Schema for a schema's input side than its output side, which
+is correct but awkward for a document where one schema is used as both a request body and a response. The
+example above keeps `io` uniform; the trade-off is that a `.transform()` is documented by its input type.
+Use `args.type` to split it per position if your schemas are not shared across both.
+
+`generateOpenApiAsync` takes the same option, typed `SchemaTransformerAsync`, if your transformer needs to
+await.
+
+Also: header parameters are now derived from the per-header record rather than one merged object schema, so
+**regenerate your document and diff it** rather than assuming it is unchanged.
+
+---
+
+## 4. Validation errors: `ZodError` → `StandardSchemaError`
+
+Every adapter's request-validation error carried four `z.ZodError | null` fields. They are now
+`StandardSchemaError | null`. The shape is deliberately smaller than Zod's:
+
+- `error.issues` is a **flat** `readonly StandardSchemaV1.Issue[]`, each `{ message, path? }`. There is no
+  `.format()`, `.flatten()`, `.errors`, `.formErrors`, or Zod issue codes.
+- `error.name === 'ValidationError'` (not `'ZodError'`), and `.message` is the JSON-stringified issues.
+
+```diff
+ createExpressEndpoints(contract, router, app, {
+   requestValidationErrorHandler: (err, req, res, next) => {
+-    res.status(400).json({ issues: err.body?.flatten() });
++    res.status(400).json({ issues: err.body?.issues });
+   },
+ });
+```
+
+The built-in `'default'` and `'combined'` Express handlers still answer 400 with the same structure, but
+the JSON they serialize is the `StandardSchemaError` shape. **Any test or client asserting on that 400 body
+must be updated.**
+
+### Renamed and removed error classes
+
+| Package | 3.x | 4.0 |
+|---|---|---|
+| `@ts-rest/core` | `ResponseValidationError` | `TsRestResponseValidationError`, plus the new `TsRestRequestValidationError` |
+| `@ts-rest/express` | `RequestValidationError` (ZodError fields) | `RequestValidationError`, fields now `StandardSchemaError` |
+| `@ts-rest/fastify` | `RequestValidationError` | `TsRestRequestValidationError` (from core) |
+| `@ts-rest/next` | `RequestValidationError` (ZodError fields) | `TsRestRequestValidationError`, re-exported from core |
+| `@ts-rest/nest` | `RequestValidationError`, `ResponseValidationError` | `TsRestNestRequestValidationError` (extends `BadRequestException`) |
+| `@ts-rest/serverless` | `RequestValidationError`, `ResponseValidationError` | `TsRestServerlessRequestValidationError` (extends `TsRestHttpError`) |
+
+These `*Schema` exports are **removed** with no replacement — they described a Zod error shape that no
+longer exists: `ZodErrorSchema`, `RequestValidationErrorSchema`, `RequestValidationErrorSchemaForNest`,
+`RequestValidationErrorSchemaWithoutMessage`, `DefaultRequestValidationErrorSchema`,
+`CombinedRequestValidationErrorSchema`. If you referenced one in a contract's `400` response, declare your
+own schema for the body your handler actually returns.
+
+### `instanceof` works across adapters
+
+Each adapter has to extend a different base class — Nest needs `BadRequestException` to get its automatic
+400, serverless needs `TsRestHttpError` to carry the status — so they cannot all extend core's class.
+Instead they carry a `Symbol.for`-based brand that core's class recognises through `Symbol.hasInstance`:
+
+```ts
+import { TsRestRequestValidationError } from '@ts-rest/core';
+
+@Catch()
+export class MyFilter implements ExceptionFilter {
+  catch(err: unknown, host: ArgumentsHost) {
+    if (err instanceof TsRestRequestValidationError) {
+      // true under express, fastify, next and nest — and across two copies of
+      // @ts-rest/core in the dependency graph, because the brand is a global symbol
+    }
+  }
+}
+```
+
+`@ts-rest/serverless` is the documented exception: its fields are `*Error`-suffixed
+(`pathParamsError`, `headersError`, `queryError`, `bodyError`) because `body` is already the HTTP response
+body of `TsRestHttpError`, so it cannot satisfy the branded shape. Identify it by `TsRestHttpError` and
+status 400.
+
+---
+
+## 5. Nest: the legacy surface is gone
+
+`initNestServer` and the decorator style were removed. These exports no longer exist: `initNestServer`,
+`NestControllerContract`, `NestControllerInterface`, `NestRequestShapes`, `NestResponseShapes`, `@TsRest()`,
+`@Api()`, `@TsRestRequest()`.
+
+**Before:**
+
+```ts
+const s = initNestServer(contract);
+
+@Controller()
+class MyController implements NestControllerInterface<typeof contract> {
+  @Api(s.route.getPost)
+  async getPost(@TsRestRequest() { params }: NestRequestShapes<typeof contract>['getPost']) {
+    return { status: 200 as const, body: await this.service.get(params.id) };
+  }
+}
+```
+
+**After:**
+
+```ts
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+
+@Controller()
+class MyController {
+  @TsRestHandler(contract.getPost)
+  async getPost() {
+    return tsRestHandler(contract.getPost, async ({ params }) => {
+      return { status: 200, body: await this.service.get(params.id) };
+    });
+  }
+}
+```
+
+---
+
+## 6. Client and response-parsing changes
+
+- **Response validation throws `StandardSchemaError`.** `tsRestFetchApi` no longer calls
+  `responseSchema.parse(…)`; catch `StandardSchemaError`, not `ZodError`.
+- **`c.noBody()` responses no longer parse JSON.** The client sets `body: undefined` and skips
+  `result.json()`, which fixes the "unexpected end of JSON input" error on bodyless responses.
+- **Path params are stringified** before URL interpolation, so a `z.coerce.number()` param interpolates
+  correctly.
+- **Double slashes are collapsed.** `baseUrl: 'http://x/'` + path `/foo` now yields `http://x/foo`, not
+  `http://x//foo`. If your server distinguished the doubled slash, behaviour changes.
+
+---
+
+## 7. Removed type aliases
+
+| Removed | Use |
+|---|---|
+| `ZodInferOrType<T>` | `SchemaOutputOrType<T>` |
+| `ZodInputOrType<T>` | `SchemaInputOrType<T>` |
+| `OverrideableClientArgs` | `OverridableClientArgs` (typo fix) |
+| `combineStandardSchemas` | nothing — see the per-key replacement rule in §2 |
+
+Inference for Zod 4 schemas through `SchemaOutputOrType` / `SchemaInputOrType` is unchanged; the aliases
+were exact forwards.
+
+---
+
+## Additive changes you may want
+
+Not required for the upgrade, but new since 3.52.1:
+
+- **Express 5** is supported (`express: ^4.0.0 || ^5.0.0`). Optional path params are rewritten from
+  `/:param?` to `{/:param}` at registration on Express 5; Express 4 paths pass through unchanged.
+- **Next.js**: query strings no longer leak into path-param parsing.
+- **Fastify** exports `AppRouteImplementation` / `AppRouteImplementationOrOptions` for splitting routers
+  across files.
+- **Serverless** exports its implementation and router types (`AppRouteImplementation`, `AppRouteOptions`,
+  `RouterImplementation`, …) so inferred handler types are portable across files.
+- **OpenAPI**: `c.otherResponse()` bodies are supported, and `operationMapper` receives the route's id.
