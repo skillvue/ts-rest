@@ -34,7 +34,7 @@ import {
   validateMultiSchemaObject,
   validateIfSchema,
   TsRestResponseValidationError,
-  TsRestRequestValidationError,
+  TsRestRequestValidationErrorBrand,
   ServerInferRequest,
 } from '@ts-rest/core';
 import {
@@ -47,7 +47,6 @@ import {
   MaybeTsRestOptions,
   TsRestOptions,
 } from './ts-rest-options';
-import { type ZodError } from 'zod';
 
 export type TsRestRequestShape<TRoute extends AppRoute> = ServerInferRequest<
   TRoute,
@@ -55,9 +54,15 @@ export type TsRestRequestShape<TRoute extends AppRoute> = ServerInferRequest<
 >;
 
 /**
- * Mirrors the internal error thrown by ts-rest when validation of the request fails, but adapted for Nest and with the appropriate metadata to be able to return the correct error response
+ * Mirrors the internal error thrown by ts-rest when validation of the request fails, but adapted for Nest and with the appropriate metadata to be able to return the correct error response.
+ *
+ * It extends `BadRequestException` so Nest answers 400 by default, and carries
+ * {@link TsRestRequestValidationErrorBrand} so `err instanceof TsRestRequestValidationError` (from
+ * `@ts-rest/core`) also holds inside an `@Catch()` exception filter.
  */
 export class TsRestNestRequestValidationError extends BadRequestException {
+  readonly [TsRestRequestValidationErrorBrand] = true;
+
   constructor(
     public pathParams: StandardSchemaError | null,
     public headers: StandardSchemaError | null,
@@ -83,22 +88,6 @@ type TsRestAppRouteMetadata = {
    */
   routeKey: string | null;
 };
-
-export class RequestValidationError extends BadRequestException {
-  constructor(
-    public pathParams: ZodError | null,
-    public headers: ZodError | null,
-    public query: ZodError | null,
-    public body: ZodError | null,
-  ) {
-    super({
-      paramsResult: pathParams,
-      headersResult: headers,
-      queryResult: query,
-      bodyResult: body,
-    });
-  }
-}
 
 const getHttpVerbDecorator = (route: AppRoute) => {
   switch (route.method) {

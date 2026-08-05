@@ -11,7 +11,6 @@ import {
   validateIfSchema,
   StandardSchemaError,
   validateMultiSchemaObject,
-  TsRestRequestValidationError,
 } from '@ts-rest/core';
 import { Router, withParams, cors } from 'itty-router';
 import { TsRestRequest } from './request';
@@ -23,6 +22,7 @@ import {
   RouterImplementation,
   ServerlessHandlerOptions,
   RouterImplementationOrFluentRouter,
+  TsRestServerlessRequestValidationError,
 } from './types';
 import { blobToArrayBuffer } from './utils';
 import { TsRestHttpError } from './http-error';
@@ -101,7 +101,7 @@ const validateRequest = <TPlatformArgs, TRequestExtension>(
     queryResult.error ||
     bodyResult.error
   ) {
-    throw new TsRestRequestValidationError(
+    throw new TsRestServerlessRequestValidationError(
       (paramsResult.error as StandardSchemaError) || null,
       (headersResult.error as StandardSchemaError) || null,
       (queryResult.error as StandardSchemaError) || null,

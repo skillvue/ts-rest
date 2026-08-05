@@ -15,20 +15,17 @@ import {
   validateResponse,
   StandardSchemaError,
   validateMultiSchemaObject,
+  TsRestRequestValidationError,
 } from '@ts-rest/core';
 import { getPathParamsFromArray } from './path-utils';
 import { type ZodError } from 'zod';
 
-export class TsRestRequestValidationError extends Error {
-  constructor(
-    public pathParams: StandardSchemaError | null,
-    public headers: StandardSchemaError | null,
-    public query: StandardSchemaError | null,
-    public body: StandardSchemaError | null,
-  ) {
-    super('[ts-rest] request validation failed');
-  }
-}
+/**
+ * Re-exported from `@ts-rest/core` rather than redeclared: this package used to define its own class of
+ * the same name, which made `err instanceof TsRestRequestValidationError` fail when the consumer
+ * imported the symbol from `@ts-rest/core` — two identically-named, unrelated classes.
+ */
+export { TsRestRequestValidationError };
 
 /**
  * @deprecated use TsRestRequestValidationError instead, this will be removed in v4

@@ -3,11 +3,43 @@ import {
   AppRouter,
   ServerInferRequest,
   ServerInferResponses,
+  StandardSchemaError,
 } from '@ts-rest/core';
 import { TsRestRequest } from './request';
 import { TsRestResponse } from './response';
 import { CorsOptions, RequestHandler } from 'itty-router';
 import { CompleteRouter, RouterBuilder } from './router-builder';
+import { TsRestHttpError } from './http-error';
+
+/**
+ * Request validation failure, as an HTTP error.
+ *
+ * It has to extend {@link TsRestHttpError}: the serverless `errorHandler` maps anything that is *not* a
+ * `TsRestHttpError` to a 500, so throwing a plain error here turns every malformed request into
+ * `500 Server Error` instead of a 400.
+ *
+ * Unlike the express/nest/next classes this one deliberately does **not** carry
+ * `TsRestRequestValidationErrorBrand`: its fields are `*Error`-suffixed because `body` is already taken
+ * by `TsRestHttpError` (it is the HTTP response body), so it cannot honestly satisfy the branded shape.
+ * Serverless consumers identify it through `TsRestHttpError` + status 400, which is what this package
+ * has always exposed.
+ */
+export class TsRestServerlessRequestValidationError extends TsRestHttpError {
+  constructor(
+    public pathParamsError: StandardSchemaError | null,
+    public headersError: StandardSchemaError | null,
+    public queryError: StandardSchemaError | null,
+    public bodyError: StandardSchemaError | null,
+  ) {
+    super(400, {
+      message: 'Request validation failed',
+      pathParameterErrors: pathParamsError,
+      headerErrors: headersError,
+      queryParameterErrors: queryError,
+      bodyErrors: bodyError,
+    });
+  }
+}
 
 export type AppRouteImplementation<
   T extends AppRoute,
