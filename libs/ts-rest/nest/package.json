@@ -1,5 +1,5 @@
 {
-  "name": "@ts-rest/nest",
+  "name": "@skillvue/ts-rest-nest",
   "version": "3.52.1",
   "private": false,
   "description": "Nest server integration for @ts-rest",

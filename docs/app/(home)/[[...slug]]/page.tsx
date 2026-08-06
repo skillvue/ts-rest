@@ -51,7 +51,7 @@ export default async function Page(props: {
                 src="https://img.shields.io/github/stars/ts-rest/ts-rest"
               />
             </a>
-            <a href="https://www.npmjs.com/package/@ts-rest/core">
+            <a href="https://www.npmjs.com/package/@skillvue/ts-rest-core">
               <img src="https://img.shields.io/npm/dm/%40ts-rest/core" />
             </a>
             <a
@@ -64,7 +64,7 @@ export default async function Page(props: {
               />
             </a>
             <a
-              href="https://bundlephobia.com/package/@ts-rest/core"
+              href="https://bundlephobia.com/package/@skillvue/ts-rest-core"
               className="hidden lg:block"
             >
               <img
@@ -72,7 +72,7 @@ export default async function Page(props: {
                 src="https://img.shields.io/bundlephobia/minzip/%40ts-rest%2Fcore"
               />
             </a>
-            <a href="https://www.npmjs.com/package/@ts-rest/core">
+            <a href="https://www.npmjs.com/package/@skillvue/ts-rest-core">
               <img
                 alt="NPM Version"
                 src="https://img.shields.io/npm/v/%40ts-rest%2Fcore"

@@ -10,7 +10,7 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import { ApiFetcher, initContract } from '@ts-rest/core';
+import { ApiFetcher, initContract } from '@skillvue/ts-rest-core';
 import * as React from 'react';
 import { act } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';

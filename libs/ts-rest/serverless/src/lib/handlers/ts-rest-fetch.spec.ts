@@ -1,4 +1,4 @@
-import { initContract, TsRestResponseError } from '@ts-rest/core';
+import { initContract, TsRestResponseError } from '@skillvue/ts-rest-core';
 import { parse as parseMultipart, getBoundary } from 'parse-multipart-data';
 import { z } from 'zod';
 import { vi } from 'vitest';

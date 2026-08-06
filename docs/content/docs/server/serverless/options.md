@@ -31,7 +31,7 @@ If you do not return a response object, ts-rest will return a default 500 server
 Note that this will catch
 
 ```typescript
-import { TsRestRequest, TsRestResponse } from '@ts-rest/serverless';
+import { TsRestRequest, TsRestResponse } from '@skillvue/ts-rest-serverless';
 
 const errorHandler = (error: unknown, request: TsRestRequest) => {
   console.error('Server Error', error);
@@ -52,8 +52,8 @@ You can optionally return a response object from the middleware to short-circuit
 You can also extend the request object with additional properties that can be accessed in the router handlers in a type-safe manner.
 
 ```typescript
-import { TsRestResponse } from '@ts-rest/serverless';
-import { fetchRequestHandler, tsr } from '@ts-rest/serverless/fetch';
+import { TsRestResponse } from '@skillvue/ts-rest-serverless';
+import { fetchRequestHandler, tsr } from '@skillvue/ts-rest-serverless/fetch';
 import { contract } from './contract';
 
 export default async (request: Request) => {
@@ -95,7 +95,7 @@ You can set global response handlers by using the `responseHandlers` option. Thi
 This can be useful for logging, adding headers, etc.
 
 ```typescript
-import { fetchRequestHandler, tsr } from '@ts-rest/serverless/fetch';
+import { fetchRequestHandler, tsr } from '@skillvue/ts-rest-serverless/fetch';
 import { contract } from './contract';
 import { router } from './router';
 
@@ -125,7 +125,7 @@ export default async (request: Request) => {
 You can also set middleware for individual routes by passing an object in the form of `{ middleware: RequestHandler[], handler: (...) => ... }` to the route definition.
 
 ```typescript
-import { fetchRequestHandler } from '@ts-rest/serverless/fetch';
+import { fetchRequestHandler } from '@skillvue/ts-rest-serverless/fetch';
 import { contract } from './contract';
 
 export default async (request: Request) => {
@@ -155,7 +155,7 @@ Please note, that you will need to manually pass the global request middleware c
 so it would be a good idea to define it outside your router definition and use that everywhere.
 
 ```typescript
-import { fetchRequestHandler, tsr } from '@ts-rest/serverless/fetch';
+import { fetchRequestHandler, tsr } from '@skillvue/ts-rest-serverless/fetch';
 import { contract } from './contract';
 
 type GlobalRequestContext = {

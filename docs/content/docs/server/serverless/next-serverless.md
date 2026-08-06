@@ -12,7 +12,7 @@ In the case of the Pages Router, it must be named exactly `[...ts-rest].ts`.
 // App router: /app/[...ts-rest]/route.ts
 // Pages router: /pages/api/[...ts-rest].ts
 
-import { createNextHandler } from '@ts-rest/serverless/next';
+import { createNextHandler } from '@skillvue/ts-rest-serverless/next';
 import { contract } from './contract';
 import { router } from './router';
 
@@ -36,7 +36,7 @@ In addition to the regular context properties, the context object for Next handl
 - `nextRequest: NextRequest`: The Next.js specific request object.
 
 ```typescript
-import { createNextHandler } from '@ts-rest/serverless/next';
+import { createNextHandler } from '@skillvue/ts-rest-serverless/next';
 import { contract } from './contract';
 
 export const handler = createNextHandler(contract, {

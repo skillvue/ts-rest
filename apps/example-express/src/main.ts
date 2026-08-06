@@ -4,10 +4,10 @@ import {
   initContract,
   TsRestResponseError,
   TsRestResponseValidationError,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { apiBlog, contractTs } from '@ts-rest/example-contracts';
-import { createExpressEndpoints, initServer } from '@ts-rest/express';
-import { generateOpenApi, SchemaTransformerAsync } from '@ts-rest/open-api';
+import { createExpressEndpoints, initServer } from '@skillvue/ts-rest-express';
+import { generateOpenApi, SchemaTransformerAsync } from '@skillvue/ts-rest-open-api';
 import * as bodyParser from 'body-parser';
 import { Request, Response, NextFunction } from 'express';
 import { serve, setup } from 'swagger-ui-express';

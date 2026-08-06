@@ -7,7 +7,7 @@ NestJS integration with ts-rest provides type-safe API endpoints while maintaini
 
 ## Installation
 
-<InstallTabs packageName="@ts-rest/nest" />
+<InstallTabs packageName="@skillvue/ts-rest-nest" />
 
 ## Approaches
 
@@ -20,8 +20,8 @@ The single handler approach provides a 1:1 migration strategy for existing contr
 ```typescript twoslash title="single-handler.ts"
 // @noErrors
 import { Controller } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
-import { initContract } from '@ts-rest/core';
+import { TsRestHandler, tsRestHandler } from '@skillvue/ts-rest-nest';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 
 const c = initContract();
@@ -105,7 +105,7 @@ export class PostController {
   endpoints. Name them whatever makes sense for your codebase.
 </Callout>
 
-**Why do we return `tsRestHandler`?** This function simply returns its second argument, but provides full TypeScript intellisense and type safety for the implementation. This keeps the API consistent with other ts-rest server implementations like `@ts-rest/express` and `@ts-rest/fastify`.
+**Why do we return `tsRestHandler`?** This function simply returns its second argument, but provides full TypeScript intellisense and type safety for the implementation. This keeps the API consistent with other ts-rest server implementations like `@skillvue/ts-rest-express` and `@skillvue/ts-rest-fastify`.
 
 #### Benefits
 
@@ -121,8 +121,8 @@ The multi handler approach is ideal for those who prefer functional programming 
 ```typescript twoslash title="multi-handler.ts"
 // @noErrors
 import { Controller } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
-import { initContract } from '@ts-rest/core';
+import { TsRestHandler, tsRestHandler } from '@skillvue/ts-rest-nest';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 
 const c = initContract();
@@ -205,7 +205,7 @@ Pass the entire contract (or a subset) to both `@TsRestHandler` and `tsRestHandl
 
 - **Compile-time safety**: TypeScript errors if you miss implementing any route
 - **Less boilerplate**: Single decorator and handler for multiple routes
-- **Consistency**: Easier to move code between `@ts-rest/express`, `@ts-rest/fastify`, and `@ts-rest/next`
+- **Consistency**: Easier to move code between `@skillvue/ts-rest-express`, `@skillvue/ts-rest-fastify`, and `@skillvue/ts-rest-next`
 - **Functional approach**: Great for those who prefer this programming style
 
 ## Using Nest Decorators
@@ -215,8 +215,8 @@ You can still use all existing Nest decorators alongside `@TsRestHandler`. This 
 ```typescript twoslash title="nest-decorators.ts"
 // @noErrors
 import { Controller, Req, Headers, UseGuards } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
-import { initContract } from '@ts-rest/core';
+import { TsRestHandler, tsRestHandler } from '@skillvue/ts-rest-nest';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 
 const c = initContract();
@@ -278,8 +278,8 @@ While we recommend returning errors as responses to maintain full type safety in
 ```typescript twoslash title="error-handling.ts"
 // @noErrors
 import { Controller } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler, TsRestException } from '@ts-rest/nest';
-import { initContract } from '@ts-rest/core';
+import { TsRestHandler, tsRestHandler, TsRestException } from '@skillvue/ts-rest-nest';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 
 const c = initContract();
@@ -362,8 +362,8 @@ Configure ts-rest options using the `@TsRest` decorator on controllers or the `@
 ```typescript twoslash title="configuration.ts"
 // @noErrors
 import { Controller } from '@nestjs/common';
-import { TsRest, TsRestHandler, tsRestHandler } from '@ts-rest/nest';
-import { initContract } from '@ts-rest/core';
+import { TsRest, TsRestHandler, tsRestHandler } from '@skillvue/ts-rest-nest';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 
 const c = initContract();

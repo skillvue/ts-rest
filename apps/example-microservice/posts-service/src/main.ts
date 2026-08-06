@@ -8,9 +8,9 @@ import * as cors from 'cors';
 import * as multer from 'multer';
 import * as swaggerUi from 'swagger-ui-express';
 import { postsApi } from '@ts-rest/example-microservice/util-posts-api';
-import { createExpressEndpoints, initServer } from '@ts-rest/express';
+import { createExpressEndpoints, initServer } from '@skillvue/ts-rest-express';
 import { userAdapter } from './app/userAdapter';
-import { SchemaTransformerAsync, generateOpenApi } from '@ts-rest/open-api';
+import { SchemaTransformerAsync, generateOpenApi } from '@skillvue/ts-rest-open-api';
 
 const upload = multer();
 const s = initServer();

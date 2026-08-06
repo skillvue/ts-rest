@@ -4,7 +4,7 @@ import {
   initContract,
   TsRestResponseError,
   TsRestResponseValidationError,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import * as supertest from 'supertest';
 import * as express from 'express';
 import { z } from 'zod';

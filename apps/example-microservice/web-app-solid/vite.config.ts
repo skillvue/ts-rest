@@ -13,11 +13,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@ts-rest/core': path.resolve(
+      '@skillvue/ts-rest-core': path.resolve(
         __dirname,
         '../../../libs/ts-rest/core/src/index.ts'
       ),
-      '@ts-rest/solid-query': path.resolve(
+      '@skillvue/ts-rest-solid-query': path.resolve(
         __dirname,
         '../../../libs/ts-rest/solid-query/src/index.ts'
       ),

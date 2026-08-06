@@ -5,11 +5,11 @@ description: How to use ts-rest with Next.js
 
 ## Installation
 
-<InstallTabs packageName="@ts-rest/next" />
+<InstallTabs packageName="@skillvue/ts-rest-next" />
 
 ## Usage
 
-For maximum type safety, by default `@ts-rest/next` uses a single endpoint for all routes.
+For maximum type safety, by default `@skillvue/ts-rest-next` uses a single endpoint for all routes.
 
 <Callout type="info" title="Multiple Endpoints">
   It is possible to split out to multiple endpoints by having multiple
@@ -19,7 +19,7 @@ For maximum type safety, by default `@ts-rest/next` uses a single endpoint for a
 
 ```typescript
 // pages/api/[...ts-rest].tsx
-import { createNextRoute, createNextRouter } from '@ts-rest/next';
+import { createNextRoute, createNextRouter } from '@skillvue/ts-rest-next';
 
 // `contract` is the AppRouter returned by `c.router`
 const postsRouter = createNextRoute(contract.posts, {
@@ -47,7 +47,7 @@ It's also possible to create a handler for a single contract route.
 
 ```typescript
 // pages/api/posts/index.tsx
-import { createSingleRouteHandler } from '@ts-rest/next';
+import { createSingleRouteHandler } from '@skillvue/ts-rest-next';
 
 export default createSingleRouteHandler(api.posts.createPost, async (args) => {
   const newPost = await posts.createPost(args.body);

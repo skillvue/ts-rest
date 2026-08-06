@@ -62,7 +62,7 @@ jobs:
       - name: Get latest published version and strip tag
         id: package-versions
         run: |
-          export LATEST_PUBLISHED_VERSION=$(pnpm dlx latest-version-cli @ts-rest/core --range=${{ inputs.tag }})
+          export LATEST_PUBLISHED_VERSION=$(pnpm dlx latest-version-cli @skillvue/ts-rest-core --range=${{ inputs.tag }})
           export CURRENT_PRERELEASE_VERSION=${{ steps.pre-release-version.outputs.current-version }}
           echo "latest_version=${LATEST_PUBLISHED_VERSION}" >> $GITHUB_OUTPUT
           echo "latest_version_stripped=${LATEST_PUBLISHED_VERSION%-*}" >> $GITHUB_OUTPUT

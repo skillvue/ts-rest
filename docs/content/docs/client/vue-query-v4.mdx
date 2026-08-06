@@ -5,9 +5,9 @@ description: The Vue Query client provides a lightweight, type-safe way to make 
 
 ## Installation
 
-<InstallTabs packageName="@ts-rest/vue-query @tanstack/vue-query" />
+<InstallTabs packageName="@skillvue/ts-rest-vue-query @tanstack/vue-query" />
 
-This is a client using `@ts-rest/vue-query`, using `@tanstack/vue-query` under the hood.
+This is a client using `@skillvue/ts-rest-vue-query`, using `@tanstack/vue-query` under the hood.
 
 ## Init TanStack Query Vue plugin
 
@@ -21,10 +21,10 @@ createApp(App).use(VueQueryPlugin).mount('#app');
 
 ## initQueryClient
 
-The below snippet is how you'd create a query client, this is pretty much the same structure as the `@ts-rest/core` client.
+The below snippet is how you'd create a query client, this is pretty much the same structure as the `@skillvue/ts-rest-core` client.
 
 ```tsx
-import { initQueryClient } from '@ts-rest/vue-query';
+import { initQueryClient } from '@skillvue/ts-rest-vue-query';
 
 export const client = initQueryClient(router, {
   baseUrl: 'http://localhost:3333',
@@ -89,7 +89,7 @@ const queryResult = client.posts.get.useQuery(
 
 <Callout title="Design Philosophy">
 
-The design philosophy of `@ts-rest/vue-query` is to make it as easy as possible to use `vue-query` with `@ts-rest`. This means that the `useQuery` and `useMutation` hooks are as close to the original `vue-query` hooks as possible, as such we don't abstract away from the query keys or the options. Only the query function itself!
+The design philosophy of `@skillvue/ts-rest-vue-query` is to make it as easy as possible to use `vue-query` with `@ts-rest`. This means that the `useQuery` and `useMutation` hooks are as close to the original `vue-query` hooks as possible, as such we don't abstract away from the query keys or the options. Only the query function itself!
 
 </Callout>
 
@@ -129,7 +129,7 @@ The reason for this is error handling! Please see the [Relevant Docs](/docs/core
 
 ## Regular Query and Mutations
 
-`@ts-rest/vue-query` allows for a regular fetch or mutation if you want, without having to initialise two different clients, one with `@ts-rest/core` and one with `@ts-rest/vue-query`.
+`@skillvue/ts-rest-vue-query` allows for a regular fetch or mutation if you want, without having to initialise two different clients, one with `@skillvue/ts-rest-core` and one with `@skillvue/ts-rest-vue-query`.
 
 ```typescript
 // Normal fetch

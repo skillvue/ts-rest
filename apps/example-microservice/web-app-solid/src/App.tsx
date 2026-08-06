@@ -3,8 +3,8 @@ import type { Component } from 'solid-js';
 import logo from './logo.svg';
 import styles from './App.module.css';
 import { postsApi } from '@ts-rest/example-microservice/util-posts-api';
-import { initQueryClient } from '@ts-rest/solid-query';
-import { ApiFetcherArgs, tsRestFetchApi } from '@ts-rest/core';
+import { initQueryClient } from '@skillvue/ts-rest-solid-query';
+import { ApiFetcherArgs, tsRestFetchApi } from '@skillvue/ts-rest-core';
 
 const client = initQueryClient(postsApi, {
   baseUrl: 'http://localhost:5003',

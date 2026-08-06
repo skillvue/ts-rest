@@ -11,7 +11,7 @@ import {
   validateResponse,
   parseAsStandardSchema,
   validateMultiSchemaObject,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import {
   IRouter,
   NextFunction,

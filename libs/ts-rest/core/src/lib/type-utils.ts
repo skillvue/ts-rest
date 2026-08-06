@@ -55,7 +55,7 @@ export type With<T, V> = Pick<T, ExcludeKeysWithoutTypeOf<T, V>>;
  * Both helpers used to carry a `T extends z.ZodTypeAny ? z.output<T>` arm ahead of the Standard Schema
  * one, to keep inferring from **zod 3** schemas, which predate Standard Schema and so are invisible to
  * `StandardSchemaV1`. v4 requires zod 4, whose schemas expose `~standard`, so the arm is unreachable
- * and `@ts-rest/core` no longer needs to know that zod exists.
+ * and `@skillvue/ts-rest-core` no longer needs to know that zod exists.
  */
 export type SchemaOutputOrType<T> = T extends ContractNullType
   ? null

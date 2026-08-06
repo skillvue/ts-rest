@@ -12,7 +12,7 @@ import {
   ClientArgs,
   ClientInferRequest,
   PartialClientInferRequest,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { DataResponse, ErrorResponse, queryFn } from './common';
 
 // Used on X.useInfiniteQuery

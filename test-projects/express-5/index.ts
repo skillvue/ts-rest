@@ -1,7 +1,7 @@
-import { createExpressEndpoints, initServer } from '@ts-rest/express';
+import { createExpressEndpoints, initServer } from '@skillvue/ts-rest-express';
 import express from 'express';
 import * as bodyParser from 'body-parser';
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 
 const c = initContract();

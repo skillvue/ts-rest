@@ -1,4 +1,4 @@
-import { AppRouter } from '@ts-rest/core';
+import { AppRouter } from '@skillvue/ts-rest-core';
 import type { NextRequest, NextResponse } from 'next/server';
 import { createServerlessRouter } from '../router';
 import {

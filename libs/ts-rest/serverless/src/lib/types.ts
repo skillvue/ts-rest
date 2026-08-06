@@ -4,7 +4,7 @@ import {
   ServerInferRequest,
   ServerInferResponses,
   StandardSchemaError,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { TsRestRequest } from './request';
 import { TsRestResponse } from './response';
 import { CorsOptions, RequestHandler } from 'itty-router';

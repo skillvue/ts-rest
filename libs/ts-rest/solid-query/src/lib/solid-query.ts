@@ -31,7 +31,7 @@ import {
   SuccessfulHttpStatusCode,
   Without,
   SchemaOutputOrType,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 
 type RecursiveProxyObj<T extends AppRouter, TClientArgs extends ClientArgs> = {
   [TKey in keyof T]: T[TKey] extends AppRoute

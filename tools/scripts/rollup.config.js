@@ -29,7 +29,7 @@ const rollupConfig = (config) => {
       return;
     }
 
-    // STEP 1: Add @ts-rest/core to peerDependencies of all libs, except core itself
+    // STEP 1: Add @skillvue/ts-rest-core to peerDependencies of all libs, except core itself
     // Can't let changesets handle this for us because it sees peerDependencies updates as a breaking change
     const packageJsonPath = path.join(outputDir, 'package.json');
     const packageJsonObject = fs.readJsonSync(packageJsonPath);
@@ -42,21 +42,21 @@ const rollupConfig = (config) => {
 
     packageJsonObject.peerDependencies = {
       ...packageJsonObject.peerDependencies,
-      '@ts-rest/core': peerVersion,
+      '@skillvue/ts-rest-core': peerVersion,
     };
 
     fs.writeJsonSync(packageJsonPath, sortPackageJson(packageJsonObject), {
       spaces: 2,
     });
 
-    logger.info('\nAdded @ts-rest/core to peer dependencies');
+    logger.info('\nAdded @skillvue/ts-rest-core to peer dependencies');
   };
 
   return {
     ...config,
     external: (source, importer, isResolved) => {
-      // stop rollup from looking for @ts-rest/* because it thinks they're not external since they are not in package.json
-      if (source.startsWith('@ts-rest/')) {
+      // stop rollup from looking for @skillvue/ts-rest-* because it thinks they're not external since they are not in package.json
+      if (source.startsWith('@skillvue/ts-rest-')) {
         return true;
       }
       return config.external(source, importer, isResolved);

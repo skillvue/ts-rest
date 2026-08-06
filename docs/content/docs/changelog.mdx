@@ -41,7 +41,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 ## 3.49.3
 
 - ([1f9fd4a](https://github.com/ts-rest/ts-rest/commit/1f9fd4a)) **core**: Fix client functions resolving as `any` in TS 5.5 when `dom` is not included in tsconfig libs
-- ([740c538](https://github.com/ts-rest/ts-rest/commit/740c538)) **core**: Fix pnpm `Maximum call stack size exceeded` when installing @ts-rest/core
+- ([740c538](https://github.com/ts-rest/ts-rest/commit/740c538)) **core**: Fix pnpm `Maximum call stack size exceeded` when installing @skillvue/ts-rest-core
 
 ## 3.49.2
 
@@ -64,7 +64,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 - ([597cd92](https://github.com/ts-rest/ts-rest/commit/597cd92)) **core**: You can now pass functions as values for your `baseHeaders` in your client. This makes it much easier now to fetch and set access tokens from your authentication libraries.
 - ([597cd92](https://github.com/ts-rest/ts-rest/commit/597cd92)) **react-query**: You can now pass functions as values for your `baseHeaders` in your client. This makes it much easier now to fetch and set access tokens from your authentication libraries.
-- ([597cd92](https://github.com/ts-rest/ts-rest/commit/597cd92)) **react-query**: New and vastly improved React Query integration with v5 support in `@ts-rest/react-query/v5`
+- ([597cd92](https://github.com/ts-rest/ts-rest/commit/597cd92)) **react-query**: New and vastly improved React Query integration with v5 support in `@skillvue/ts-rest-react-query/v5`
 - ([597cd92](https://github.com/ts-rest/ts-rest/commit/597cd92)) **solid-query**: You can now pass functions as values for your `baseHeaders` in your client. This makes it much easier now to fetch and set access tokens from your authentication libraries.
 - ([597cd92](https://github.com/ts-rest/ts-rest/commit/597cd92)) **vue-query**: You can now pass functions as values for your `baseHeaders` in your client. This makes it much easier now to fetch and set access tokens from your authentication libraries.
 
@@ -116,7 +116,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 ## 3.45.0
 
 - ([3dc697f](https://github.com/ts-rest/ts-rest/commit/3dc697f)) **fastify**: Pass `appRoute` to route handlers
-- ([5f83426](https://github.com/ts-rest/ts-rest/commit/5f83426)) **react-query**: Export the entire `@tanstack/react-query` from `@ts-rest/react-query/tanstack` to fix `No QueryClient set` errors caused by version mismatches
+- ([5f83426](https://github.com/ts-rest/ts-rest/commit/5f83426)) **react-query**: Export the entire `@tanstack/react-query` from `@skillvue/ts-rest-react-query/tanstack` to fix `No QueryClient set` errors caused by version mismatches
 - **serverless**: Updated
 
 ## 3.44.1
@@ -151,7 +151,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 3.41.1
 
-- ([d107181](https://github.com/ts-rest/ts-rest/commit/d107181)) **serverless**: Fix broken type for `@ts-rest/serverless/next` handler
+- ([d107181](https://github.com/ts-rest/ts-rest/commit/d107181)) **serverless**: Fix broken type for `@skillvue/ts-rest-serverless/next` handler
 
 ## 3.41.0
 
@@ -207,7 +207,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 - ([6a5280c](https://github.com/ts-rest/ts-rest/commit/6a5280c)) **core**: Allow fetch options to be set and client options to be overridden per request
 - ([77db06b](https://github.com/ts-rest/ts-rest/commit/77db06b)) **core**: Fix client not correctly encoding application/x-www-form-urlencoded body
 - ([85b262b](https://github.com/ts-rest/ts-rest/commit/85b262b)) **nest**: Fix return types for Nest handlers
-- ([6a5280c](https://github.com/ts-rest/ts-rest/commit/6a5280c)) **next**: Deprecate initNextClient. Use `initClient` from @ts-rest/core and use the `fetchOptions.next` parameter.
+- ([6a5280c](https://github.com/ts-rest/ts-rest/commit/6a5280c)) **next**: Deprecate initNextClient. Use `initClient` from @skillvue/ts-rest-core and use the `fetchOptions.next` parameter.
 - ([6a5280c](https://github.com/ts-rest/ts-rest/commit/6a5280c)) **react-query**: Allow fetch options to be set and client options to be overridden per request
 - **serverless**: Updated
 - ([6a5280c](https://github.com/ts-rest/ts-rest/commit/6a5280c)) **solid-query**: Allow fetch options to be set and client options to be overridden per request
@@ -242,40 +242,40 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 3.33.0
 
-- ([820658a](https://github.com/ts-rest/ts-rest/commit/820658a)) **express**: feat `@ts-rest/express`: Allow file downloads with Express
+- ([820658a](https://github.com/ts-rest/ts-rest/commit/820658a)) **express**: feat `@skillvue/ts-rest-express`: Allow file downloads with Express
 
 ## 3.32.0
 
-- ([c4fb3f6](https://github.com/ts-rest/ts-rest/commit/c4fb3f6)) **core**: feat: `@ts-rest/core`: Add support for `x-www-form-urlencoded` content-type to core client fetcher
+- ([c4fb3f6](https://github.com/ts-rest/ts-rest/commit/c4fb3f6)) **core**: feat: `@skillvue/ts-rest-core`: Add support for `x-www-form-urlencoded` content-type to core client fetcher
 
 ## 3.31.0
 
-- ([dcf40a6](https://github.com/ts-rest/ts-rest/commit/dcf40a6)) **nest**: feat: `@ts-rest/nest` allow TsRestException to be handled by NestJS exception filters
-- ([89941a2](https://github.com/ts-rest/ts-rest/commit/89941a2)) **nest**: feat: `@ts-rest/nest` Adds support to provide a `cause` to `TsRestException`
-- ([3668247](https://github.com/ts-rest/ts-rest/commit/3668247)) **next**: feat: `@ts-rest/next` allow nextjs as a peer dependency
+- ([dcf40a6](https://github.com/ts-rest/ts-rest/commit/dcf40a6)) **nest**: feat: `@skillvue/ts-rest-nest` allow TsRestException to be handled by NestJS exception filters
+- ([89941a2](https://github.com/ts-rest/ts-rest/commit/89941a2)) **nest**: feat: `@skillvue/ts-rest-nest` Adds support to provide a `cause` to `TsRestException`
+- ([3668247](https://github.com/ts-rest/ts-rest/commit/3668247)) **next**: feat: `@skillvue/ts-rest-next` allow nextjs as a peer dependency
 - ([cb7aa3d](https://github.com/ts-rest/ts-rest/commit/cb7aa3d)) **next**: feat: `ts-rest/next` allow customization for zod validation errors
-- ([29fe85b](https://github.com/ts-rest/ts-rest/commit/29fe85b)) **react-query**: feat: `@ts-rest/react-query` use object-syntax in react-query to support [@tanstack/react-query@^5.0.0](https://tanstack.com/query/latest/docs/react/guides/migrating-to-v5)
-- ([29fe85b](https://github.com/ts-rest/ts-rest/commit/29fe85b)) **vue-query**: feat: `@ts-rest/react-query` use object-syntax in react-query to support [@tanstack/react-query@^5.0.0](https://tanstack.com/query/latest/docs/react/guides/migrating-to-v5)
+- ([29fe85b](https://github.com/ts-rest/ts-rest/commit/29fe85b)) **react-query**: feat: `@skillvue/ts-rest-react-query` use object-syntax in react-query to support [@tanstack/react-query@^5.0.0](https://tanstack.com/query/latest/docs/react/guides/migrating-to-v5)
+- ([29fe85b](https://github.com/ts-rest/ts-rest/commit/29fe85b)) **vue-query**: feat: `@skillvue/ts-rest-react-query` use object-syntax in react-query to support [@tanstack/react-query@^5.0.0](https://tanstack.com/query/latest/docs/react/guides/migrating-to-v5)
 
 ## 3.30.5
 
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **core**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **core**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **core**: add changeset for latest changes
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **express**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **express**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **express**: add changeset for latest changes
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **fastify**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **fastify**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **fastify**: add changeset for latest changes
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **nest**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **nest**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **nest**: add changeset for latest changes
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **next**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **next**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **next**: add changeset for latest changes
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **open-api**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **open-api**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **open-api**: add changeset for latest changes
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **react-query**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **react-query**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **react-query**: add changeset for latest changes
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **solid-query**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **solid-query**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **solid-query**: add changeset for latest changes
-- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **vue-query**: - `@ts-rest/fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
+- ([9bd7402](https://github.com/ts-rest/ts-rest/commit/9bd7402)) **vue-query**: - `@skillvue/ts-rest-fastify` fix: fastify deprecated routerPath property (fixes [#392](https://github.com/ts-rest/ts-rest/issues/392))
 - ([8cc95c5](https://github.com/ts-rest/ts-rest/commit/8cc95c5)) **vue-query**: add changeset for latest changes
 
 ## 3.30.4
@@ -292,7 +292,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 3.30.3
 
-- ([da48e62](https://github.com/ts-rest/ts-rest/commit/da48e62)) **core**: fix: apply `validateResponseOnClient` recursively to nested App Routers in `@ts-rest/core` client
+- ([da48e62](https://github.com/ts-rest/ts-rest/commit/da48e62)) **core**: fix: apply `validateResponseOnClient` recursively to nested App Routers in `@skillvue/ts-rest-core` client
 
 ## 3.30.2
 
@@ -301,27 +301,27 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 3.30.1
 
-- ([a30326c](https://github.com/ts-rest/ts-rest/commit/a30326c)) **fastify**: Remove console log in fasitfy route initialization for `@ts-rest/fastify`
+- ([a30326c](https://github.com/ts-rest/ts-rest/commit/a30326c)) **fastify**: Remove console log in fasitfy route initialization for `@skillvue/ts-rest-fastify`
 
 ## 3.30.0
 
-- ([c056132](https://github.com/ts-rest/ts-rest/commit/c056132)) **core**: feat: add support for client-side response validation against contract schemas for `@ts-rest/core` (see docs for usage)
-- ([225921c](https://github.com/ts-rest/ts-rest/commit/225921c)) **express**: feat: added stronger typing for the `req` object in the route handler for '@ts-rest/express'
+- ([c056132](https://github.com/ts-rest/ts-rest/commit/c056132)) **core**: feat: add support for client-side response validation against contract schemas for `@skillvue/ts-rest-core` (see docs for usage)
+- ([225921c](https://github.com/ts-rest/ts-rest/commit/225921c)) **express**: feat: added stronger typing for the `req` object in the route handler for '@skillvue/ts-rest-express'
 
 ## 3.29.0
 
-- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **core**: - bump `@ts-rest/react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
-- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **express**: - bump `@ts-rest/react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
+- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **core**: - bump `@skillvue/ts-rest-react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
+- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **express**: - bump `@skillvue/ts-rest-react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
 - ([f45aa1b](https://github.com/ts-rest/ts-rest/commit/f45aa1b)) **fastify**: fix: Type error when combining server contracts with fastify
-- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **fastify**: - bump `@ts-rest/react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
+- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **fastify**: - bump `@skillvue/ts-rest-react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
 - ([19aeb0a](https://github.com/ts-rest/ts-rest/commit/19aeb0a)) **nest**: - feat: Add option to disable request validation
-- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **nest**: - bump `@ts-rest/react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
-- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **next**: - bump `@ts-rest/react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
+- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **nest**: - bump `@skillvue/ts-rest-react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
+- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **next**: - bump `@skillvue/ts-rest-react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
 - ([5c80a5e](https://github.com/ts-rest/ts-rest/commit/5c80a5e)) **open-api**: fix(ts-rest-open-api): pathParams and query descriptions from `zod` `.describe()`
-- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **open-api**: - bump `@ts-rest/react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
-- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **react-query**: - bump `@ts-rest/react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
-- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **solid-query**: - bump `@ts-rest/react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
-- ([2feedbb](https://github.com/ts-rest/ts-rest/commit/2feedbb)) **vue-query**: Adds new `@ts-rest/vue-query` package!
+- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **open-api**: - bump `@skillvue/ts-rest-react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
+- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **react-query**: - bump `@skillvue/ts-rest-react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
+- ([5f7b236](https://github.com/ts-rest/ts-rest/commit/5f7b236)) **solid-query**: - bump `@skillvue/ts-rest-react-query` peer dependency `@tanstack/react-query` to `^4.0.0` (latest 4.33.0)
+- ([2feedbb](https://github.com/ts-rest/ts-rest/commit/2feedbb)) **vue-query**: Adds new `@skillvue/ts-rest-vue-query` package!
 
 ## 3.28.0
 
@@ -355,7 +355,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 3.26.2
 
-- ([b3d3868](https://github.com/ts-rest/ts-rest/commit/b3d3868)) **nest**: Remove extra peer dependencies from @ts-rest/nest
+- ([b3d3868](https://github.com/ts-rest/ts-rest/commit/b3d3868)) **nest**: Remove extra peer dependencies from @skillvue/ts-rest-nest
 
 ## 3.26.1
 
@@ -364,12 +364,12 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 ## 3.26.0
 
 - ([fcf877d](https://github.com/ts-rest/ts-rest/commit/fcf877d)) **core**: Allow defining non-json response types in the contract
-- ([48b138d](https://github.com/ts-rest/ts-rest/commit/48b138d)) **core**: Add new `SingleHandler` and `MultiHandler` API to `@ts-rest/nest`
+- ([48b138d](https://github.com/ts-rest/ts-rest/commit/48b138d)) **core**: Add new `SingleHandler` and `MultiHandler` API to `@skillvue/ts-rest-nest`
 - ([2763208](https://github.com/ts-rest/ts-rest/commit/2763208)) **core**: Added `pathPrefix` to contract options to allow recursive path prefixing.
 - ([fcf877d](https://github.com/ts-rest/ts-rest/commit/fcf877d)) **express**: Allow defining non-json response types in the contract
 - ([fcf877d](https://github.com/ts-rest/ts-rest/commit/fcf877d)) **fastify**: Allow defining non-json response types in the contract
 - ([fcf877d](https://github.com/ts-rest/ts-rest/commit/fcf877d)) **nest**: Allow defining non-json response types in the contract
-- ([48b138d](https://github.com/ts-rest/ts-rest/commit/48b138d)) **nest**: Add new `SingleHandler` and `MultiHandler` API to `@ts-rest/nest`
+- ([48b138d](https://github.com/ts-rest/ts-rest/commit/48b138d)) **nest**: Add new `SingleHandler` and `MultiHandler` API to `@skillvue/ts-rest-nest`
 - ([fcf877d](https://github.com/ts-rest/ts-rest/commit/fcf877d)) **next**: Allow defining non-json response types in the contract
 
 ## 3.25.1
@@ -524,7 +524,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 ## 3.16.1
 
 - ([832b645](https://github.com/ts-rest/ts-rest/commit/832b645)) **core**: fix(core): wrong "content-type" detection
-- ([41a5fbb](https://github.com/ts-rest/ts-rest/commit/41a5fbb)) **express**: Make @ts-rest/express ESM compatible
+- ([41a5fbb](https://github.com/ts-rest/ts-rest/commit/41a5fbb)) **express**: Make @skillvue/ts-rest-express ESM compatible
 - ([8a8b606](https://github.com/ts-rest/ts-rest/commit/8a8b606)) **nest**: Increased type safety for the @TsRest decorator
 
 ## 3.16.0
@@ -600,7 +600,7 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 3.10.2
 
-- ([fd456fc](https://github.com/ts-rest/ts-rest/commit/fd456fc)) **react-query**: Fix CJS export, fixes @ts-rest/react-query 3.10.1
+- ([fd456fc](https://github.com/ts-rest/ts-rest/commit/fd456fc)) **react-query**: Fix CJS export, fixes @skillvue/ts-rest-react-query 3.10.1
 
 ## 3.10.1
 
@@ -609,9 +609,9 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 ## 3.10.0
 
 - ([046e498](https://github.com/ts-rest/ts-rest/commit/046e498)) **core**: Use Nest.js req.query and req.params instead of parsing from URL
-- ([35c64db](https://github.com/ts-rest/ts-rest/commit/35c64db)) **core**: Move next lib utils out of @ts-rest/core to reduce bundle size
+- ([35c64db](https://github.com/ts-rest/ts-rest/commit/35c64db)) **core**: Move next lib utils out of @skillvue/ts-rest-core to reduce bundle size
 - ([046e498](https://github.com/ts-rest/ts-rest/commit/046e498)) **nest**: Use Nest.js req.query and req.params instead of parsing from URL
-- ([35c64db](https://github.com/ts-rest/ts-rest/commit/35c64db)) **next**: Move next lib utils out of @ts-rest/core to reduce bundle size
+- ([35c64db](https://github.com/ts-rest/ts-rest/commit/35c64db)) **next**: Move next lib utils out of @skillvue/ts-rest-core to reduce bundle size
 
 ## 3.9.0
 
@@ -684,8 +684,8 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 3.2.0
 
-- ([c9a5a52](https://github.com/ts-rest/ts-rest/commit/c9a5a52)) **react-query**: Add useInfiniteQuery support to @ts-rest/react-query
-- ([c9a5a52](https://github.com/ts-rest/ts-rest/commit/c9a5a52)) **solid-query**: Add useInfiniteQuery support to @ts-rest/solid-query
+- ([c9a5a52](https://github.com/ts-rest/ts-rest/commit/c9a5a52)) **react-query**: Add useInfiniteQuery support to @skillvue/ts-rest-react-query
+- ([c9a5a52](https://github.com/ts-rest/ts-rest/commit/c9a5a52)) **solid-query**: Add useInfiniteQuery support to @skillvue/ts-rest-solid-query
 
 ## 3.1.1
 
@@ -706,10 +706,10 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 2.1.0
 
-- ([75f157a](https://github.com/ts-rest/ts-rest/commit/75f157a)) **core**: Add Zod validation to @ts-rest/next
-- ([75f157a](https://github.com/ts-rest/ts-rest/commit/75f157a)) **express**: Add Zod validation to @ts-rest/next
-- ([75f157a](https://github.com/ts-rest/ts-rest/commit/75f157a)) **nest**: Add Zod validation to @ts-rest/next
-- ([75f157a](https://github.com/ts-rest/ts-rest/commit/75f157a)) **next**: Add Zod validation to @ts-rest/next
+- ([75f157a](https://github.com/ts-rest/ts-rest/commit/75f157a)) **core**: Add Zod validation to @skillvue/ts-rest-next
+- ([75f157a](https://github.com/ts-rest/ts-rest/commit/75f157a)) **express**: Add Zod validation to @skillvue/ts-rest-next
+- ([75f157a](https://github.com/ts-rest/ts-rest/commit/75f157a)) **nest**: Add Zod validation to @skillvue/ts-rest-next
+- ([75f157a](https://github.com/ts-rest/ts-rest/commit/75f157a)) **next**: Add Zod validation to @skillvue/ts-rest-next
 - ([a80cc0f](https://github.com/ts-rest/ts-rest/commit/a80cc0f)) **next**: Add initial Next implementation, with a single endpoint based implementation
 
 ## 2.0.1
@@ -752,8 +752,8 @@ description: This is a combined changelog for all ts-rest packages, automaticall
 
 ## 1.1.0
 
-- ([72dd65d](https://github.com/ts-rest/ts-rest/commit/72dd65d)) **core**: Extract express logic to @ts-rest/express
-- ([72dd65d](https://github.com/ts-rest/ts-rest/commit/72dd65d)) **express**: Extract express logic to @ts-rest/express
+- ([72dd65d](https://github.com/ts-rest/ts-rest/commit/72dd65d)) **core**: Extract express logic to @skillvue/ts-rest-express
+- ([72dd65d](https://github.com/ts-rest/ts-rest/commit/72dd65d)) **express**: Extract express logic to @skillvue/ts-rest-express
 
 ## 1.0.4
 

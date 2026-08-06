@@ -15,13 +15,13 @@ import {
   validateResponse,
   validateMultiSchemaObject,
   TsRestRequestValidationError,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { getPathParamsFromArray } from './path-utils';
 
 /**
- * Re-exported from `@ts-rest/core` rather than redeclared: this package used to define its own class of
+ * Re-exported from `@skillvue/ts-rest-core` rather than redeclared: this package used to define its own class of
  * the same name, which made `err instanceof TsRestRequestValidationError` fail when the consumer
- * imported the symbol from `@ts-rest/core` — two identically-named, unrelated classes.
+ * imported the symbol from `@skillvue/ts-rest-core` — two identically-named, unrelated classes.
  */
 export { TsRestRequestValidationError };
 

@@ -1,5 +1,5 @@
 import { apiBlog } from '@ts-rest/example-contracts';
-import { initQueryClient } from '@ts-rest/vue-query';
+import { initQueryClient } from '@skillvue/ts-rest-vue-query';
 
 export const client = initQueryClient(apiBlog, {
   baseUrl: 'http://localhost:3334',

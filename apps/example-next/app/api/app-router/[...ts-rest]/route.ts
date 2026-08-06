@@ -1,4 +1,4 @@
-import { createNextHandler } from '@ts-rest/serverless/next';
+import { createNextHandler } from '@skillvue/ts-rest-serverless/next';
 import { testContract } from '../../../../contracts/test-contract';
 
 const handler = createNextHandler(

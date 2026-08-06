@@ -1,6 +1,6 @@
 'use client';
 
-import { AppRouter, ClientArgs } from '@ts-rest/core';
+import { AppRouter, ClientArgs } from '@skillvue/ts-rest-core';
 import * as React from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';

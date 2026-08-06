@@ -1,4 +1,4 @@
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 
 export interface PostTs {

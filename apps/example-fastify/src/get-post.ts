@@ -1,4 +1,4 @@
-import { initServer } from '@ts-rest/fastify';
+import { initServer } from '@skillvue/ts-rest-fastify';
 import { apiBlog } from '@ts-rest/example-contracts';
 import { mockPostFixtureFactory } from './main';
 

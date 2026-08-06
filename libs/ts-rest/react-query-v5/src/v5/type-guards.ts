@@ -5,7 +5,7 @@ import {
   InferResponseUndefinedStatusCodes,
   exhaustiveGuard,
   isUnknownErrorResponse,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 
 type FetchError = Error;
 

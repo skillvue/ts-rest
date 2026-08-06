@@ -1,5 +1,5 @@
 ---
-'@ts-rest/open-api': patch
+'@skillvue/ts-rest-open-api': patch
 ---
 
 Support `c.otherResponse()` when generating OpenAPI schema

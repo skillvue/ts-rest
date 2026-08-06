@@ -1,5 +1,5 @@
 import * as v from 'valibot';
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { generateOpenApi, generateOpenApiAsync } from './ts-rest-open-api';
 import { VALIBOT_ASYNC, ZOD_SYNC } from './parsers/test-helpers';
 import { z } from 'zod';

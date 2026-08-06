@@ -1,9 +1,9 @@
 ---
-'@ts-rest/core': patch
-'@ts-rest/express': patch
-'@ts-rest/next': patch
-'@ts-rest/nest': patch
-'@ts-rest/serverless': patch
+'@skillvue/ts-rest-core': patch
+'@skillvue/ts-rest-express': patch
+'@skillvue/ts-rest-next': patch
+'@skillvue/ts-rest-nest': patch
+'@skillvue/ts-rest-serverless': patch
 ---
 
 Make `instanceof TsRestRequestValidationError` work in every server adapter.
@@ -14,5 +14,5 @@ threw `RequestValidationError`. A `@Catch()` filter or error handler checking th
 `false` and fell through to a 500. The core class now recognises a `Symbol.for`-based brand that the
 adapters carry.
 
-Also fixes `@ts-rest/serverless` answering `500 Server Error` instead of `400` for *every* failed request
+Also fixes `@skillvue/ts-rest-serverless` answering `500 Server Error` instead of `400` for *every* failed request
 validation: it threw core's plain-`Error` class, which its error handler maps to a 500.

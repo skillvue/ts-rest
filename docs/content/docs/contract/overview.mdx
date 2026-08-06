@@ -36,7 +36,7 @@ You can define your contract fields such as `body`, `query`, `pathParams`, and `
 <Tabs items={['Zod', 'Valibot', 'Arktype', 'Plain Types']}>
   <Tab value="Zod">
 ```typescript twoslash title="contract.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod'; // [!code highlight]
 
 const c = initContract();
@@ -62,7 +62,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Valibot">
 ```typescript title="contract.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import * as v from 'valibot'; // [!code highlight]
 
 const c = initContract();
@@ -88,7 +88,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Arktype">
 ```typescript title="contract.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { type } from 'arktype'; // [!code highlight]
 
 const c = initContract();
@@ -114,7 +114,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Plain Types">
 ```typescript title="contract.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 
 const c = initContract();
 
@@ -148,7 +148,7 @@ If you can send it, we can probably validate it - `ts-rest` supports `body`, `qu
 you can also pass a schema for the response types, allowing for bidirectional validation (no more oversharing data from an overzealous service method!).
 
 ```typescript twoslash title="validated-path-params.ts"
-import { initContract, ClientInferRequest } from '@ts-rest/core';
+import { initContract, ClientInferRequest } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 
@@ -196,7 +196,7 @@ Define path parameters by adding them to the `path` string with a colon `:` foll
 We automatically infer the path parameters from this string, and treat them as `string` by default.
 
 ```typescript twoslash title="path-params.ts"
-import { initContract, ClientInferRequest } from '@ts-rest/core';
+import { initContract, ClientInferRequest } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 
@@ -235,7 +235,7 @@ If you need to run validations or transformations on path parameters, define a s
 This allows you to do any form of validation or **transformations** you want.
 
 ```typescript twoslash title="validated-path-params.ts"
-import { initContract, ClientInferRequest } from '@ts-rest/core';
+import { initContract, ClientInferRequest } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 
@@ -274,7 +274,7 @@ import {
   initContract,
   ClientInferRequest,
   ServerInferRequest,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 
@@ -315,7 +315,7 @@ Query parameters are always strings in their raw form, so they must be typed as 
 <Tabs items={['Zod', 'Valibot', 'Arktype', 'Plain Types']}>
   <Tab value="Zod">
 ```typescript  title="query-params.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 // ---cut---
@@ -338,7 +338,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Valibot">
 ```typescript  title="query-params.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import * as v from 'valibot';
 const c = initContract();
 // ---cut---
@@ -361,7 +361,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Arktype">
 ```typescript  title="query-params.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { type } from 'arktype';
 const c = initContract();
 
@@ -384,7 +384,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Plain Types">
 ```typescript  title="query-params.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 const c = initContract();
 
 export const contract = c.router({
@@ -413,7 +413,7 @@ You can configure ts-rest to encode/decode query parameters as JSON using the `j
 <Tabs items={['Zod', 'Valibot', 'Arktype']}>
   <Tab value="Zod">
 ```typescript  title="json-query.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 
@@ -438,7 +438,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Valibot">
 ```typescript  title="json-query.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import * as v from 'valibot';
 const c = initContract();
 
@@ -463,7 +463,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Arktype">
 ```typescript  title="json-query.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { type } from 'arktype';
 const c = initContract();
 
@@ -500,7 +500,7 @@ Define headers in your contract with a string input type. You can use transforms
 <Tabs items={['Zod', 'Valibot', 'Arktype', 'Plain Types']}>
   <Tab value="Zod">
 ```typescript  title="headers.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 
@@ -522,7 +522,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Valibot">
 ```typescript  title="headers.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import * as v from 'valibot';
 const c = initContract();
 
@@ -544,7 +544,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Arktype">
 ```typescript  title="headers.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { type } from 'arktype';
 const c = initContract();
 
@@ -566,7 +566,7 @@ export const contract = c.router({
   </Tab>
   <Tab value="Plain Types">
 ```typescript  title="headers.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 const c = initContract();
 
 export const contract = c.router({
@@ -592,7 +592,7 @@ export const contract = c.router({
 You can define base headers for all routes in a contract, useful for things like authorization headers. This forces the client to always pass these headers unless also defined in the client's `baseHeaders`.
 
 ```typescript twoslash title="base-headers.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 
@@ -656,7 +656,7 @@ headers: {
 Base headers are also inherited by nested contracts, so this is perfectly valid:
 
 ```typescript title="base-headers.ts" twoslash
-import { initContract, ClientInferRequest } from '@ts-rest/core';
+import { initContract, ClientInferRequest } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 
@@ -716,7 +716,7 @@ Define response types as a map of status codes to response schemas. Responses de
 </Callout>
 
 ```typescript title="responses.ts" twoslash
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 // ---cut---
@@ -743,7 +743,7 @@ export const contract = c.router({
 To define a non `application/json` response, you can use `c.otherResponse`:
 
 ```typescript title="responses.ts" twoslash
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 // ---cut---
@@ -774,7 +774,7 @@ import {
   initContract,
   ClientInferRequest,
   ServerInferResponseBody,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 const c = initContract();
 // ---cut---
 
@@ -801,7 +801,7 @@ type Response = ServerInferResponseBody<typeof contract.deletePokemon, 204>;
 A common practise in API design is to define common responses across all routes in your contract, typically for error responses. We support this with the `commonResponses` option.
 
 ```typescript title="common-responses.ts" twoslash
-import { initContract, ClientInferResponses } from '@ts-rest/core';
+import { initContract, ClientInferResponses } from '@skillvue/ts-rest-core';
 const c = initContract();
 type Pokemon = {
   id: string;
@@ -861,7 +861,7 @@ export const contract = c.router({
 Attach metadata to your contract routes that can be accessed throughout ts-rest. This is useful for things like role-based access control or OpenAPI documentation.
 
 ```typescript title="metadata.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 const c = initContract();
 
 export const contract = c.router({
@@ -894,7 +894,7 @@ export const contract = c.router({
 </Callout>
 
 ```typescript twoslash title="server.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 
 const c = initContract();
 
@@ -929,7 +929,7 @@ Configure some extra behaviour with these contract options.
 By default, ts-rest allows any response status code. Enable `strictStatusCodes` to only allow status codes defined in your contract.
 
 ```typescript title="strict-status-codes.ts" twoslash
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 const c = initContract();
 type Pokemon = {
   id: string;
@@ -966,7 +966,7 @@ export const contract = c.router(
 Add a prefix to all paths in your contract, useful for API versioning or modular routing.
 
 ```typescript title="path-prefix.ts" twoslash
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 const c = initContract();
 type Pokemon = {
   id: string;
@@ -1008,7 +1008,7 @@ const fullPath = apiContract.pokemon.getPokemon.path;
 For better developer experience, you can add JSDoc comments to provide intellisense on your contract types.
 
 ```typescript title="intellisense.ts" twoslash
-import { initContract, ClientInferRequest, initClient } from '@ts-rest/core';
+import { initContract, ClientInferRequest, initClient } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 const c = initContract();
 type Pokemon = {

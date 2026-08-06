@@ -17,12 +17,12 @@ importers:
       '@nestjs/platform-express':
         specifier: ^11.0.0
         version: 11.0.9(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.9)
-      '@ts-rest/core':
+      '@skillvue/ts-rest-core':
         specifier: file:../../dist/libs/ts-rest/core
         version: file:../../dist/libs/ts-rest/core(@types/node@22.13.1)
-      '@ts-rest/nest':
+      '@skillvue/ts-rest-nest':
         specifier: file:../../dist/libs/ts-rest/nest
-        version: file:../../dist/libs/ts-rest/nest(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.9(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.9)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@ts-rest/core@file:../../dist/libs/ts-rest/core(@types/node@22.13.1))(rxjs@7.8.1)
+        version: file:../../dist/libs/ts-rest/nest(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.9(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.9)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@skillvue/ts-rest-core@file:../../dist/libs/ts-rest/core(@types/node@22.13.1))(rxjs@7.8.1)
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -805,6 +805,22 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
+  '@skillvue/ts-rest-core@file:../../dist/libs/ts-rest/core':
+    resolution: {directory: ../../dist/libs/ts-rest/core, type: directory}
+    peerDependencies:
+      '@types/node': ^18.18.7 || >=20.8.4
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+
+  '@skillvue/ts-rest-nest@file:../../dist/libs/ts-rest/nest':
+    resolution: {directory: ../../dist/libs/ts-rest/nest, type: directory}
+    peerDependencies:
+      '@nestjs/common': ^9.0.0 || ^10.0.0 || ^11.0.0
+      '@nestjs/core': ^9.0.0 || ^10.0.0 || ^11.0.0
+      '@skillvue/ts-rest-core': ~3.52.0
+      rxjs: ^7.1.0
+
   '@swc/cli@0.6.0':
     resolution: {integrity: sha512-Q5FsI3Cw0fGMXhmsg7c08i4EmXCrcl+WnAxb6LYOLHw4JFFC3yzmx9LaXZ7QMbA+JZXbigU2TirI7RAfO0Qlnw==}
     engines: {node: '>= 16.14.0'}
@@ -897,22 +913,6 @@ packages:
 
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
-
-  '@ts-rest/core@file:../../dist/libs/ts-rest/core':
-    resolution: {directory: ../../dist/libs/ts-rest/core, type: directory}
-    peerDependencies:
-      '@types/node': ^18.18.7 || >=20.8.4
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-
-  '@ts-rest/nest@file:../../dist/libs/ts-rest/nest':
-    resolution: {directory: ../../dist/libs/ts-rest/nest, type: directory}
-    peerDependencies:
-      '@nestjs/common': ^9.0.0 || ^10.0.0 || ^11.0.0
-      '@nestjs/core': ^9.0.0 || ^10.0.0 || ^11.0.0
-      '@ts-rest/core': ~3.52.0
-      rxjs: ^7.1.0
 
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
@@ -4229,6 +4229,17 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
+  '@skillvue/ts-rest-core@file:../../dist/libs/ts-rest/core(@types/node@22.13.1)':
+    optionalDependencies:
+      '@types/node': 22.13.1
+
+  '@skillvue/ts-rest-nest@file:../../dist/libs/ts-rest/nest(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.9(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.9)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@skillvue/ts-rest-core@file:../../dist/libs/ts-rest/core(@types/node@22.13.1))(rxjs@7.8.1)':
+    dependencies:
+      '@nestjs/common': 11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1)
+      '@nestjs/core': 11.0.9(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.9)(reflect-metadata@0.2.2)(rxjs@7.8.1)
+      '@skillvue/ts-rest-core': file:../../dist/libs/ts-rest/core(@types/node@22.13.1)
+      rxjs: 7.8.1
+
   '@swc/cli@0.6.0(@swc/core@1.10.15)(chokidar@4.0.3)':
     dependencies:
       '@swc/core': 1.10.15
@@ -4301,17 +4312,6 @@ snapshots:
       defer-to-connect: 2.0.1
 
   '@tokenizer/token@0.3.0': {}
-
-  '@ts-rest/core@file:../../dist/libs/ts-rest/core(@types/node@22.13.1)':
-    optionalDependencies:
-      '@types/node': 22.13.1
-
-  '@ts-rest/nest@file:../../dist/libs/ts-rest/nest(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.9(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.9)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@ts-rest/core@file:../../dist/libs/ts-rest/core(@types/node@22.13.1))(rxjs@7.8.1)':
-    dependencies:
-      '@nestjs/common': 11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1)
-      '@nestjs/core': 11.0.9(@nestjs/common@11.0.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.9)(reflect-metadata@0.2.2)(rxjs@7.8.1)
-      '@ts-rest/core': file:../../dist/libs/ts-rest/core(@types/node@22.13.1)
-      rxjs: 7.8.1
 
   '@tsconfig/node10@1.0.11': {}
 

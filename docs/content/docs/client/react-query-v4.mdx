@@ -5,7 +5,7 @@ description: The React Query client provides a lightweight, type-safe way to mak
 
 ## Installation
 
-<InstallTabs packageName="@ts-rest/react-query @tanstack/react-query@4" />
+<InstallTabs packageName="@skillvue/ts-rest-react-query @tanstack/react-query@4" />
 
 This is a client using `@tanstack/react-query` under the hood.
 
@@ -27,10 +27,10 @@ For more detailed information, refer to the [official `react-query` documentatio
 
 ## initQueryClient
 
-The below snippet is how you'd create a query client, this is pretty much the same structure as the `@ts-rest/core` client.
+The below snippet is how you'd create a query client, this is pretty much the same structure as the `@skillvue/ts-rest-core` client.
 
 ```tsx
-import { initQueryClient } from '@ts-rest/react-query';
+import { initQueryClient } from '@skillvue/ts-rest-react-query';
 
 export const client = initQueryClient(router, {
   baseUrl: 'http://localhost:3333',
@@ -71,7 +71,7 @@ const queryResult = client.posts.get.useQuery(
 
 <Callout title="Design Philosophy">
 
-The design philosophy of `@ts-rest/react-query` is to make it as easy as possible to use `react-query` with `@ts-rest`. This means that the `useQuery` and `useMutation` hooks are as close to the original `react-query` hooks as possible, as such we don't abstract away from the query keys or the options. Only the query function itself!
+The design philosophy of `@skillvue/ts-rest-react-query` is to make it as easy as possible to use `react-query` with `@ts-rest`. This means that the `useQuery` and `useMutation` hooks are as close to the original `react-query` hooks as possible, as such we don't abstract away from the query keys or the options. Only the query function itself!
 
 </Callout>
 
@@ -130,11 +130,11 @@ export const client = initQueryClient(router, {
 
 This will force you the handle these errors if you attempt to access the `error.status` property, without first checking if the error is an instance of `Error`.
 
-This will be enabled by default starting from `@ts-rest/react-query` v4.0.0.
+This will be enabled by default starting from `@skillvue/ts-rest-react-query` v4.0.0.
 
 ## Regular Query and Mutations
 
-`@ts-rest/react-query` allows for a regular fetch or mutation if you want, without having to initialise two different clients, one with `@ts-rest/core` and one with `@ts-rest/react-query`.
+`@skillvue/ts-rest-react-query` allows for a regular fetch or mutation if you want, without having to initialise two different clients, one with `@skillvue/ts-rest-core` and one with `@skillvue/ts-rest-react-query`.
 
 ```typescript
 // Normal fetch
@@ -243,10 +243,10 @@ return (
 
 ## QueryClient Helpers
 
-In addition to the hooks provided, `@ts-rest/react-query` also provides a custom hook `useTsRestQueryClient` with wrapper functions around some `QueryClient` functions to help invoke the API as well as provide some typing.
+In addition to the hooks provided, `@skillvue/ts-rest-react-query` also provides a custom hook `useTsRestQueryClient` with wrapper functions around some `QueryClient` functions to help invoke the API as well as provide some typing.
 
 ```tsx
-import { initQueryClient, useTsRestQueryClient } from '@ts-rest/react-query';
+import { initQueryClient, useTsRestQueryClient } from '@skillvue/ts-rest-react-query';
 
 export const client = initQueryClient(router);
 
@@ -330,14 +330,14 @@ If you see this error despite having set a `QueryClient` using `QueryClientProvi
 This can also happen in rare cases when ESM and CJS versions of the package are mixed by a bundler like Webpack.
 
 If you have made sure that you are using the same version of `@tanstack/react-query` across your project, and are still having problems, you can work around this
-by importing `@tanstack/react-query` from `@ts-rest/react-query/tanstack` instead of `@tanstack/react-query`. This will ensure that you are using the same version as the one used
-by `@ts-rest/react-query`.
+by importing `@tanstack/react-query` from `@skillvue/ts-rest-react-query/tanstack` instead of `@tanstack/react-query`. This will ensure that you are using the same version as the one used
+by `@skillvue/ts-rest-react-query`.
 
 ```tsx
 import {
   QueryClient,
   QueryClientProvider,
-} from '@ts-rest/react-query/tanstack';
+} from '@skillvue/ts-rest-react-query/tanstack';
 
 const queryClient = new QueryClient();
 

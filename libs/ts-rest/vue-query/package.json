@@ -1,5 +1,5 @@
 {
-  "name": "@ts-rest/vue-query",
+  "name": "@skillvue/ts-rest-vue-query",
   "version": "3.52.1",
   "private": false,
   "description": "vue-query client integration for @ts-rest",

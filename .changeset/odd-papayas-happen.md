@@ -1,15 +1,15 @@
 ---
-'@ts-rest/core': major
-'@ts-rest/express': major
-'@ts-rest/fastify': major
-'@ts-rest/nest': major
-'@ts-rest/next': major
-'@ts-rest/open-api': major
-'@ts-rest/react-query': major
-'@ts-rest/react-query-v5': major
-'@ts-rest/serverless': major
-'@ts-rest/solid-query': major
-'@ts-rest/vue-query': major
+'@skillvue/ts-rest-core': major
+'@skillvue/ts-rest-express': major
+'@skillvue/ts-rest-fastify': major
+'@skillvue/ts-rest-nest': major
+'@skillvue/ts-rest-next': major
+'@skillvue/ts-rest-open-api': major
+'@skillvue/ts-rest-react-query': major
+'@skillvue/ts-rest-react-query-v5': major
+'@skillvue/ts-rest-serverless': major
+'@skillvue/ts-rest-solid-query': major
+'@skillvue/ts-rest-vue-query': major
 ---
 
 Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.

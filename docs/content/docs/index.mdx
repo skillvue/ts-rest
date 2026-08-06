@@ -19,7 +19,7 @@ We support any Typescript validation library that supports [Standard Schema](htt
 <Tabs items={['Zod', 'Valibot', 'Arktype', 'None']}>
   <Tab value="Zod">
 ```typescript title="contract.ts"
-    import { initContract } from '@ts-rest/core';
+    import { initContract } from '@skillvue/ts-rest-core';
     import { z } from 'zod'; // [!code highlight]
 
     const c = initContract();
@@ -40,7 +40,7 @@ We support any Typescript validation library that supports [Standard Schema](htt
   </Tab>
   <Tab value="Valibot">
     ```typescript title="contract.ts"
-    import { initContract } from '@ts-rest/core';
+    import { initContract } from '@skillvue/ts-rest-core';
     import * as v from 'valibot'; // [!code highlight]
 
     const c = initContract();
@@ -61,7 +61,7 @@ We support any Typescript validation library that supports [Standard Schema](htt
   </Tab>
   <Tab value="Arktype">
     ```typescript title="contract.ts"
-    import { initContract } from '@ts-rest/core';
+    import { initContract } from '@skillvue/ts-rest-core';
     import { type } from 'arktype'; // [!code highlight]
 
     const c = initContract();
@@ -82,7 +82,7 @@ We support any Typescript validation library that supports [Standard Schema](htt
   </Tab>
    <Tab value="None">
     ```typescript title="contract.ts"
-    import { initContract } from '@ts-rest/core';
+    import { initContract } from '@skillvue/ts-rest-core';
 
     const c = initContract();
 
@@ -105,7 +105,7 @@ We support any Typescript validation library that supports [Standard Schema](htt
 We support Nest, Next.js, Express, Fastify and more - Our server implementation allows you to guarentee your backend stays in sync with your API contract.
 
 ```typescript twoslash title="server.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 const c = initContract();
 
 export const contract = c.router({
@@ -125,7 +125,7 @@ const pokemonService = {
 };
 
 // ---cut---
-import { initServer } from '@ts-rest/express';
+import { initServer } from '@skillvue/ts-rest-express';
 
 const s = initServer();
 
@@ -144,10 +144,10 @@ const router = s.router(contract, {
 
 ### Use the API on the client
 
-Our `@ts-rest/core` package provides a super light-weight fetch based client - We remain close to HTTP fundamentals, so we always return a status code, and body.
+Our `@skillvue/ts-rest-core` package provides a super light-weight fetch based client - We remain close to HTTP fundamentals, so we always return a status code, and body.
 
 ```typescript twoslash title="client.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 const c = initContract();
 
 export const contract = c.router({
@@ -161,7 +161,7 @@ export const contract = c.router({
 });
 
 // ---cut---
-import { initClient } from '@ts-rest/core';
+import { initClient } from '@skillvue/ts-rest-core';
 
 const client = initClient(contract, {
   baseUrl: 'http://localhost:3000',

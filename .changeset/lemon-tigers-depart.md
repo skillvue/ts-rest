@@ -1,5 +1,5 @@
 ---
-'@ts-rest/nest': major
+'@skillvue/ts-rest-nest': major
 ---
 
 Remove the legacy `initNestServer` / decorator API. `@TsRestHandler` + `tsRestHandler` is the only supported

@@ -1,4 +1,4 @@
-import { TsRestResponseError } from '@ts-rest/core';
+import { TsRestResponseError } from '@skillvue/ts-rest-core';
 
 export class TsRestHttpError extends Error {
   constructor(

@@ -1,4 +1,4 @@
-import { AppRoute } from '@ts-rest/core';
+import { AppRoute } from '@skillvue/ts-rest-core';
 
 /**
  * Get path params from array of url segments

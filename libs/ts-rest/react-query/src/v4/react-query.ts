@@ -26,7 +26,7 @@ import {
   isErrorResponse,
   Without,
   SchemaOutputOrType,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { useMemo } from 'react';
 import {
   AppRouteFunctions,

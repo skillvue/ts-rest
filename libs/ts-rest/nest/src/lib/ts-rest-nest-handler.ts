@@ -36,7 +36,7 @@ import {
   TsRestResponseValidationError,
   TsRestRequestValidationErrorBrand,
   ServerInferRequest,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import {
   TsRestAppRouteMetadataKey,
   TsRestOptionsMetadataKey,
@@ -58,7 +58,7 @@ export type TsRestRequestShape<TRoute extends AppRoute> = ServerInferRequest<
  *
  * It extends `BadRequestException` so Nest answers 400 by default, and carries
  * {@link TsRestRequestValidationErrorBrand} so `err instanceof TsRestRequestValidationError` (from
- * `@ts-rest/core`) also holds inside an `@Catch()` exception filter.
+ * `@skillvue/ts-rest-core`) also holds inside an `@Catch()` exception filter.
  */
 export class TsRestNestRequestValidationError extends BadRequestException {
   readonly [TsRestRequestValidationErrorBrand] = true;

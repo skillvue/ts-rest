@@ -1,5 +1,5 @@
 import * as fastify from 'fastify';
-import { initServer } from '@ts-rest/fastify';
+import { initServer } from '@skillvue/ts-rest-fastify';
 import { apiBlog, Post } from '@ts-rest/example-contracts';
 import { getPost } from './get-post';
 

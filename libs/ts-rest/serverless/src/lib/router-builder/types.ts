@@ -1,4 +1,4 @@
-import { AppRoute, AppRouter } from '@ts-rest/core';
+import { AppRoute, AppRouter } from '@skillvue/ts-rest-core';
 import { AppRouteImplementationOrOptions } from '../types';
 
 export type PartialRouter<

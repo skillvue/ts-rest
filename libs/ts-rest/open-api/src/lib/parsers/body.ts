@@ -1,4 +1,4 @@
-import { AppRoute } from '@ts-rest/core';
+import { AppRoute } from '@skillvue/ts-rest-core';
 import {
   AsyncAndSyncHelper,
   GetAsyncFunction,

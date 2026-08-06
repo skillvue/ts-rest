@@ -1,5 +1,5 @@
 ---
-'@ts-rest/open-api': major
+'@skillvue/ts-rest-open-api': major
 ---
 
 Add support for custom schema transformers to work with standard schema update in 3.53.0

@@ -4,7 +4,7 @@ import {
   createExpressEndpoints,
   initServer,
   TsRestRequest,
-} from '@ts-rest/express';
+} from '@skillvue/ts-rest-express';
 import * as bodyParser from 'body-parser';
 import { mockOwnedResource, mockPostFixtureFactory } from './fixtures';
 import { Strategy, ExtractJwt, VerifiedCallback } from 'passport-jwt';

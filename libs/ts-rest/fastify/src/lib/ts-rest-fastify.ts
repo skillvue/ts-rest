@@ -13,7 +13,7 @@ import {
   validateResponse,
   validateMultiSchemaObject,
   TsRestRequestValidationError,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import * as fastify from 'fastify';
 
 type FastifyContextConfig<T extends AppRouter | AppRoute> = {

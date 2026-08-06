@@ -1,5 +1,5 @@
 import { apiNested } from '@ts-rest/example-contracts';
-import { createNextRoute, createNextRouter } from '@ts-rest/next';
+import { createNextRoute, createNextRouter } from '@skillvue/ts-rest-next';
 import { postsService } from '../../server/posts';
 
 const postsRouter = createNextRoute(apiNested.posts, {

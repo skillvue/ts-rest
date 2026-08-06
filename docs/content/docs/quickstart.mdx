@@ -5,7 +5,7 @@ description: Let's get started, making a basic contract, server, and client.
 
 <Steps>
   <Step>
-    <p>Create a contract with `@ts-rest/core`</p>
+    <p>Create a contract with `@skillvue/ts-rest-core`</p>
   </Step>
   <Step>
     <p>Create a server implementation with one of our supported frameworks</p>
@@ -17,9 +17,9 @@ description: Let's get started, making a basic contract, server, and client.
 
 ## Installation
 
-Install the `@ts-rest/core` package, this is the core package that provides the type-safe contract, and a basic fetch based client.
+Install the `@skillvue/ts-rest-core` package, this is the core package that provides the type-safe contract, and a basic fetch based client.
 
-<InstallTabs packageName="@ts-rest/core" />
+<InstallTabs packageName="@skillvue/ts-rest-core" />
 
 Enable `strict` in your `tsconfig.json`, this is required to work with some ts-rest functionality, and often downstream libraries like [Zod](https://github.com/colinhacks/zod#requirements)
 
@@ -46,7 +46,7 @@ This provides **runtime validation** of your contract, as opposed to just type s
   <Tab value="Zod">
 
 ```typescript title="contract.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 
 const c = initContract();
@@ -71,7 +71,7 @@ export const pokemonContract = c.router({
   <Tab value="Valibot">
 
 ```typescript title="contract.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import * as v from 'valibot';
 
 const c = initContract();
@@ -96,7 +96,7 @@ export const pokemonContract = c.router({
   <Tab value="Arktype">
 
 ```typescript title="contract.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 import { type } from 'arktype';
 
 const c = initContract();
@@ -121,7 +121,7 @@ export const pokemonContract = c.router({
   <Tab value="None">
 
 ```typescript title="contract.ts"
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 
 const c = initContract();
 
@@ -148,14 +148,14 @@ export const pokemonContract = c.router({
 
 <Tabs items={['Nest', 'Express', 'Fastify', 'Next']}>
   <Tab value="Nest">
-  <InstallTabs packageName="@ts-rest/nest" />
+  <InstallTabs packageName="@skillvue/ts-rest-nest" />
 <p>ts-rest offers a unique way to create a fully type safe REST API server,
 normally Nest APIs are extremely powerful, but hard to make type safe.</p>
 
-Let's add `@ts-rest/nest` to a basic Nest controller:
+Let's add `@skillvue/ts-rest-nest` to a basic Nest controller:
 
 ```typescript title="pokemon.controller.ts"
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { TsRestHandler, tsRestHandler } from '@skillvue/ts-rest-nest';
 import { Controller } from '@nestjs/common';
 import { pokemonContract } from './contract';
 
@@ -182,15 +182,15 @@ You can see that we're using the modern `@TsRestHandler` decorator with the `tsR
 
   </Tab>
   <Tab value="Express">
-  <InstallTabs packageName="@ts-rest/express" />
+  <InstallTabs packageName="@skillvue/ts-rest-express" />
 <p>The express implementaton allows full type safety, offering; body parsing, query parsing, param parsing and full error handling</p>
 
 ```typescript title="main.ts"
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { initServer } from '@ts-rest/express';
-import { createExpressEndpoints } from '@ts-rest/express';
+import { initServer } from '@skillvue/ts-rest-express';
+import { createExpressEndpoints } from '@skillvue/ts-rest-express';
 import { pokemonContract } from './contract';
 
 const app = express();
@@ -230,12 +230,12 @@ const server = app.listen(port, () => {
 
   </Tab>
    <Tab value="Fastify">
-  <InstallTabs packageName="@ts-rest/fastify" />
+  <InstallTabs packageName="@skillvue/ts-rest-fastify" />
 <p>The fastify implementaton allows full type safety, offering; body parsing, query parsing, param parsing and full error handling</p>
 
 ```typescript title="main.ts"
 import fastify from 'fastify';
-import { initServer } from '@ts-rest/fastify';
+import { initServer } from '@skillvue/ts-rest-fastify';
 import { pokemonContract } from './contract';
 
 const app = fastify();
@@ -277,10 +277,10 @@ start();
 
   </Tab>
   <Tab value="Next">
-  <InstallTabs packageName="@ts-rest/next" />
+  <InstallTabs packageName="@skillvue/ts-rest-next" />
 
 ```typescript title="pages/api/[...ts-rest].tsx"
-import { createNextRoute, createNextRouter } from '@ts-rest/next';
+import { createNextRoute, createNextRouter } from '@skillvue/ts-rest-next';
 import { pokemonContract } from './contract';
 
 const router = createNextRoute(pokemonContract, {
@@ -315,10 +315,10 @@ export default createNextRouter(pokemonContract, router);
   <Tab value="Fetch">
 
 This is the basic client, using fetch under the hood which is exported
-from @ts-rest/core.
+from @skillvue/ts-rest-core.
 
 ```typescript title="client.ts" twoslash
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 
 const c = initContract();
 
@@ -338,7 +338,7 @@ export const pokemonContract = c.router({
 });
 
 // ---cut---
-import { initClient } from '@ts-rest/core';
+import { initClient } from '@skillvue/ts-rest-core';
 
 const client = initClient(pokemonContract, {
   baseUrl: 'http://localhost:3000',
@@ -360,13 +360,13 @@ if (res.status === 200) {
 
   </Tab>
   <Tab value="react-query">
-  <InstallTabs packageName="@ts-rest/react-query" />
+  <InstallTabs packageName="@skillvue/ts-rest-react-query" />
 
-The `@ts-rest/react-query` integration follows the same underlying pattern as the core `@tanstack/react-query` package so it should feel super familiar.
+The `@skillvue/ts-rest-react-query` integration follows the same underlying pattern as the core `@tanstack/react-query` package so it should feel super familiar.
 
 ```tsx title="pokemon-component.tsx" twoslash
 import React from 'react';
-import { initContract } from '@ts-rest/core';
+import { initContract } from '@skillvue/ts-rest-core';
 
 const c = initContract();
 
@@ -386,7 +386,7 @@ export const pokemonContract = c.router({
 });
 
 // ---cut---
-import { initQueryClient } from '@ts-rest/react-query';
+import { initQueryClient } from '@skillvue/ts-rest-react-query';
 
 export const client = initQueryClient(pokemonContract, {
   baseUrl: 'http://localhost:3333',

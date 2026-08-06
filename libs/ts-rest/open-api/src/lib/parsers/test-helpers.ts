@@ -1,5 +1,5 @@
 import { SchemaTransformerAsync, SchemaTransformerSync } from '../types';
-import { isStandardSchema } from '@ts-rest/core';
+import { isStandardSchema } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 import { toJsonSchema } from '@valibot/to-json-schema';
 import { convert } from '@openapi-contrib/json-schema-to-openapi-schema';

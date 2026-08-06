@@ -22,7 +22,7 @@ export class TsRestResponseValidationError extends Error {
  * `err instanceof TsRestRequestValidationError` holds for *every* adapter's error. This is the single
  * check consumers should write in their error handlers / exception filters.
  *
- * `Symbol.for` is deliberate: the brand survives having more than one copy of `@ts-rest/core` in the
+ * `Symbol.for` is deliberate: the brand survives having more than one copy of `@skillvue/ts-rest-core` in the
  * dependency graph, where a plain `instanceof` would not.
  */
 export const TsRestRequestValidationErrorBrand = Symbol.for(

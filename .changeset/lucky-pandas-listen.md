@@ -1,5 +1,5 @@
 ---
-'@ts-rest/open-api': patch
+'@skillvue/ts-rest-open-api': patch
 ---
 
 Fix two regressions that produced invalid or incomplete OpenAPI documents:

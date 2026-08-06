@@ -1,4 +1,4 @@
-import { initContract, type AppRoute } from '@ts-rest/core';
+import { initContract, type AppRoute } from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 import { generateOpenApi as generateOpenApiWithTransformer } from './ts-rest-open-api';
 import { ZOD_SYNC } from './parsers/test-helpers';

@@ -2,7 +2,7 @@ import { Controller, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { usersApi } from '@ts-rest/example-microservice/util-users-api';
 import { AppService } from './app.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { TsRestHandler, tsRestHandler } from '@skillvue/ts-rest-nest';
 import 'multer';
 
 @Controller()

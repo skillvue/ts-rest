@@ -10,14 +10,14 @@
   <a href="https://github.com/ts-rest/ts-rest">
     <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ts-rest/ts-rest"/>
   </a>
-  <a href="https://www.npmjs.com/package/@ts-rest/core">
-    <img src="https://img.shields.io/npm/dm/%40ts-rest/core"/>
+  <a href="https://www.npmjs.com/package/@skillvue/ts-rest-core">
+    <img src="https://img.shields.io/npm/dm/%40skillvue%2Fts-rest-core"/>
   </a>
   <a href="https://github.com/ts-rest/ts-rest/blob/main/LICENSE">
     <img alt="License" src="https://img.shields.io/github/license/ts-rest/ts-rest"/>
   </a>
-  <a href="https://bundlephobia.com/package/@ts-rest/core">
-    <img alt="Bundle Size" src="https://img.shields.io/bundlephobia/minzip/@ts-rest/core?label=%40ts-rest%2Fcore"/>
+  <a href="https://bundlephobia.com/package/@skillvue/ts-rest-core">
+    <img alt="Bundle Size" src="https://img.shields.io/bundlephobia/minzip/@skillvue/ts-rest-core?label=%40skillvue%2Fts-rest-core"/>
   </a>
 </p>
 

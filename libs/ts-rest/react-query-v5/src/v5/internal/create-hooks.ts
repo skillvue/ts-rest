@@ -24,7 +24,7 @@ import {
   isAppRoute,
   isAppRouteQuery,
   isErrorResponse,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import {
   MutationHooks,
   QueryHooks,

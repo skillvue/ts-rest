@@ -1,4 +1,4 @@
-import { initServer } from '@ts-rest/express';
+import { initServer } from '@skillvue/ts-rest-express';
 import { mockPostFixtureFactory } from './fixtures';
 import { apiBlog } from '@ts-rest/example-contracts';
 

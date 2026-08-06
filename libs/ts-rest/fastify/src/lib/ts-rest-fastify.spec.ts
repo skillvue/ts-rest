@@ -1,4 +1,4 @@
-import { initContract, TsRestResponseError } from '@ts-rest/core';
+import { initContract, TsRestResponseError } from '@skillvue/ts-rest-core';
 import { initServer } from './ts-rest-fastify';
 import { z } from 'zod';
 import fastify from 'fastify';

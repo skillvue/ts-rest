@@ -10,7 +10,7 @@ import {
   TsRestResponseError,
   validateIfSchema,
   validateMultiSchemaObject,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { Router, withParams, cors } from 'itty-router';
 import { TsRestRequest } from './request';
 import { TsRestResponse } from './response';

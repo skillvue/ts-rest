@@ -1,4 +1,4 @@
-import { AppRoute, ClientArgs } from '@ts-rest/core';
+import { AppRoute, ClientArgs } from '@skillvue/ts-rest-core';
 import {
   EnsureQueryDataOptions,
   FetchInfiniteQueryOptions,

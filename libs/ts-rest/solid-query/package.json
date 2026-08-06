@@ -1,5 +1,5 @@
 {
-  "name": "@ts-rest/solid-query",
+  "name": "@skillvue/ts-rest-solid-query",
   "version": "3.52.1",
   "private": false,
   "description": "solid-query client integration for @ts-rest",

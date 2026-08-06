@@ -4,35 +4,74 @@ description: Every breaking change between ts-rest 3.x and 4.0, with before/afte
 
 ---
 
-## What changed, in one sentence
+## First: the packages have moved
+
+`4.0.0` ships from the [skillvue fork](https://github.com/skillvue/tsv-rest) under a new npm scope. Every
+package is renamed, so **the very first step of the upgrade is a find-and-replace**:
+
+| 3.x | 4.0 |
+|---|---|
+| `@ts-rest/core` | `@skillvue/ts-rest-core` |
+| `@ts-rest/express` | `@skillvue/ts-rest-express` |
+| `@ts-rest/fastify` | `@skillvue/ts-rest-fastify` |
+| `@ts-rest/nest` | `@skillvue/ts-rest-nest` |
+| `@ts-rest/next` | `@skillvue/ts-rest-next` |
+| `@ts-rest/open-api` | `@skillvue/ts-rest-open-api` |
+| `@ts-rest/react-query` | `@skillvue/ts-rest-react-query` |
+| `@ts-rest/serverless` | `@skillvue/ts-rest-serverless` |
+| `@ts-rest/solid-query` | `@skillvue/ts-rest-solid-query` |
+| `@ts-rest/vue-query` | `@skillvue/ts-rest-vue-query` |
+
+Subpath exports keep their suffix: `@ts-rest/serverless/aws` → `@skillvue/ts-rest-serverless/aws`, and
+likewise for `/azure`, `/fetch`, `/next`, `@ts-rest/react-query/tanstack` and `@ts-rest/react-query/v5`.
+(TanStack Query v5 users: `/v5` is a subpath of the react-query package, not a package of its own — there
+has never been an installable `@ts-rest/react-query-v5`.)
+
+Nothing about the *API* changes because of the rename — the exported symbols are identical. It is a
+scope change, not a rewrite. The version number continues upstream's numbering deliberately: `4.0` means
+the same thing in both projects, so the rest of this guide applies whether you are coming from
+`@ts-rest/*@3.x` or tracking the upstream v4 work.
+
+<Callout type="warn">
+  Uninstall the `@ts-rest/*` packages rather than leaving them installed alongside. npm considers the two
+  scopes unrelated, so nothing stops a stale `@ts-rest/express` from resolving against the new
+  `@skillvue/ts-rest-core` — an adapter built for the Zod 3 validation model talking to a core that no
+  longer has one.
+</Callout>
+
+---
+
+## What else changed, in one sentence
 
 ts-rest no longer knows what Zod is. Validation now runs through
 [Standard Schema](https://github.com/standard-schema/standard-schema), so **Zod 4, Valibot, ArkType, or no
 validator at all** are equally supported — and Zod 3, which predates that interface, is not supported.
 
 Two other changes are large enough to plan for: the `headers` DSL is now a **record keyed by header name**,
-and `@ts-rest/open-api` requires you to **supply a schema transformer**.
+and `@skillvue/ts-rest-open-api` requires you to **supply a schema transformer**.
 
-> All eleven `@ts-rest/*` packages are versioned in lock-step, so every one of them goes to `4.0.0` — even
+> All eleven `@skillvue/ts-rest-*` packages are versioned in lock-step, so every one of them goes to `4.0.0` — even
 > the ones with no breaking change of their own (`react-query`, `react-query-v5`, `solid-query`,
 > `vue-query`). Bumping one means bumping all.
 
 ## Upgrade checklist
 
-1. Upgrade your validator to **Zod 4** — or adopt Valibot / ArkType. `zod` is no longer a peer dependency
+1. Swap every `@ts-rest/*` dependency and import for its `@skillvue/ts-rest-*` equivalent, and uninstall
+   the old packages.
+2. Upgrade your validator to **Zod 4** — or adopt Valibot / ArkType. `zod` is no longer a peer dependency
    of any ts-rest package, so **add it to your own `dependencies` explicitly**; it will not arrive
    transitively.
-2. Rewrite every `headers: z.object({…})` and `baseHeaders: z.object({…})` into the per-header record form.
-3. Pass a `schemaTransformer` to `generateOpenApi` / `generateOpenApiAsync`.
-4. Update request/response validation-error handling to `StandardSchemaError` — flat `.issues`, no
+3. Rewrite every `headers: z.object({…})` and `baseHeaders: z.object({…})` into the per-header record form.
+4. Pass a `schemaTransformer` to `generateOpenApi` / `generateOpenApiAsync`.
+5. Update request/response validation-error handling to `StandardSchemaError` — flat `.issues`, no
    `.flatten()` — and to the renamed error classes.
-5. Replace the removed Zod helpers (`checkZodSchema`, `isZodType`, `zodMerge`, `ZodErrorSchema`, …) with the
+6. Replace the removed Zod helpers (`checkZodSchema`, `isZodType`, `zodMerge`, `ZodErrorSchema`, …) with the
    Standard Schema helpers.
-6. **Nest only:** delete all `initNestServer` / `@Api` / `@TsRest` / `@TsRestRequest()` usage and move to
+7. **Nest only:** delete all `initNestServer` / `@Api` / `@TsRest` / `@TsRestRequest()` usage and move to
    `@TsRestHandler` + `tsRestHandler`.
-7. Rename the type imports: `ZodInferOrType` → `SchemaOutputOrType`, `ZodInputOrType` →
+8. Rename the type imports: `ZodInferOrType` → `SchemaOutputOrType`, `ZodInputOrType` →
    `SchemaInputOrType`, `OverrideableClientArgs` → `OverridableClientArgs`.
-8. Retest client response parsing for `c.noBody()` routes and for numeric / coerced path params, and
+9. Retest client response parsing for `c.noBody()` routes and for numeric / coerced path params, and
    regenerate your OpenAPI document and diff it.
 
 ---
@@ -52,7 +91,7 @@ Two consequences worth knowing before you start:
 
 ### Removed helpers
 
-`libs/ts-rest/core/src/lib/zod-utils.ts` is gone, and with it these exports from `@ts-rest/core`:
+`libs/ts-rest/core/src/lib/zod-utils.ts` is gone, and with it these exports from `@skillvue/ts-rest-core`:
 
 | Removed | Replacement |
 |---|---|
@@ -118,7 +157,7 @@ What the new form buys you, and what to watch for:
 
 ---
 
-## 3. `@ts-rest/open-api`: `schemaTransformer` is required
+## 3. `@skillvue/ts-rest-open-api`: `schemaTransformer` is required
 
 The generator can no longer turn your schemas into JSON Schema by itself — being validator-agnostic means
 it does not know what your schemas are. `options` and its `schemaTransformer` are now **required**.
@@ -135,8 +174,8 @@ a Zod 3 library and **throws on Zod 4 schemas**, so do not reach for it:
 
 ```ts
 import { z } from 'zod';
-import { isStandardSchema } from '@ts-rest/core';
-import type { SchemaTransformerSync } from '@ts-rest/open-api';
+import { isStandardSchema } from '@skillvue/ts-rest-core';
+import type { SchemaTransformerSync } from '@skillvue/ts-rest-open-api';
 
 const ZOD_TRANSFORMER: SchemaTransformerSync = ({ schema }) => {
   if (!isStandardSchema(schema) || schema['~standard'].vendor !== 'zod') {
@@ -194,12 +233,12 @@ must be updated.**
 
 | Package | 3.x | 4.0 |
 |---|---|---|
-| `@ts-rest/core` | `ResponseValidationError` | `TsRestResponseValidationError`, plus the new `TsRestRequestValidationError` |
-| `@ts-rest/express` | `RequestValidationError` (ZodError fields) | `RequestValidationError`, fields now `StandardSchemaError` |
-| `@ts-rest/fastify` | `RequestValidationError` | `TsRestRequestValidationError` (from core) |
-| `@ts-rest/next` | `RequestValidationError` (ZodError fields) | `TsRestRequestValidationError`, re-exported from core |
-| `@ts-rest/nest` | `RequestValidationError`, `ResponseValidationError` | `TsRestNestRequestValidationError` (extends `BadRequestException`) |
-| `@ts-rest/serverless` | `RequestValidationError`, `ResponseValidationError` | `TsRestServerlessRequestValidationError` (extends `TsRestHttpError`) |
+| `@skillvue/ts-rest-core` | `ResponseValidationError` | `TsRestResponseValidationError`, plus the new `TsRestRequestValidationError` |
+| `@skillvue/ts-rest-express` | `RequestValidationError` (ZodError fields) | `RequestValidationError`, fields now `StandardSchemaError` |
+| `@skillvue/ts-rest-fastify` | `RequestValidationError` | `TsRestRequestValidationError` (from core) |
+| `@skillvue/ts-rest-next` | `RequestValidationError` (ZodError fields) | `TsRestRequestValidationError`, re-exported from core |
+| `@skillvue/ts-rest-nest` | `RequestValidationError`, `ResponseValidationError` | `TsRestNestRequestValidationError` (extends `BadRequestException`) |
+| `@skillvue/ts-rest-serverless` | `RequestValidationError`, `ResponseValidationError` | `TsRestServerlessRequestValidationError` (extends `TsRestHttpError`) |
 
 These `*Schema` exports are **removed** with no replacement — they described a Zod error shape that no
 longer exists: `ZodErrorSchema`, `RequestValidationErrorSchema`, `RequestValidationErrorSchemaForNest`,
@@ -214,20 +253,20 @@ Each adapter has to extend a different base class — Nest needs `BadRequestExce
 Instead they carry a `Symbol.for`-based brand that core's class recognises through `Symbol.hasInstance`:
 
 ```ts
-import { TsRestRequestValidationError } from '@ts-rest/core';
+import { TsRestRequestValidationError } from '@skillvue/ts-rest-core';
 
 @Catch()
 export class MyFilter implements ExceptionFilter {
   catch(err: unknown, host: ArgumentsHost) {
     if (err instanceof TsRestRequestValidationError) {
       // true under express, fastify, next and nest — and across two copies of
-      // @ts-rest/core in the dependency graph, because the brand is a global symbol
+      // @skillvue/ts-rest-core in the dependency graph, because the brand is a global symbol
     }
   }
 }
 ```
 
-`@ts-rest/serverless` is the documented exception: its fields are `*Error`-suffixed
+`@skillvue/ts-rest-serverless` is the documented exception: its fields are `*Error`-suffixed
 (`pathParamsError`, `headersError`, `queryError`, `bodyError`) because `body` is already the HTTP response
 body of `TsRestHttpError`, so it cannot satisfy the branded shape. Identify it by `TsRestHttpError` and
 status 400.
@@ -257,7 +296,7 @@ class MyController implements NestControllerInterface<typeof contract> {
 **After:**
 
 ```ts
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { TsRestHandler, tsRestHandler } from '@skillvue/ts-rest-nest';
 
 @Controller()
 class MyController {

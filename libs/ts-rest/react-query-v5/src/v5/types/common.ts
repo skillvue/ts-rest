@@ -9,7 +9,7 @@ import {
   ErrorHttpStatusCode,
   PartialClientInferRequest,
   SuccessfulHttpStatusCode,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { QueryClient } from '@tanstack/react-query';
 import { MutationHooks, QueryHooks } from './hooks';
 import { TsRestQueryClientFunctions } from './query-client-functions';

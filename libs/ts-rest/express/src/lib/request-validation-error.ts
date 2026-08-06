@@ -1,12 +1,12 @@
 import {
   StandardSchemaError,
   TsRestRequestValidationErrorBrand,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 
 /**
  * Carries {@link TsRestRequestValidationErrorBrand} so that
- * `err instanceof TsRestRequestValidationError` (from `@ts-rest/core`) also holds for this
- * express-specific class — see the brand's documentation in `@ts-rest/core`.
+ * `err instanceof TsRestRequestValidationError` (from `@skillvue/ts-rest-core`) also holds for this
+ * express-specific class — see the brand's documentation in `@skillvue/ts-rest-core`.
  */
 export class RequestValidationError extends Error {
   readonly [TsRestRequestValidationErrorBrand] = true;

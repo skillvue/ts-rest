@@ -3,11 +3,11 @@ import { app, contract } from './index';
 import {
   generateOpenApiAsync,
   type SchemaTransformerAsync,
-} from '@ts-rest/open-api';
+} from '@skillvue/ts-rest-open-api';
 import request from 'supertest';
 import { z } from 'zod/v4';
 import { convert } from '@openapi-contrib/json-schema-to-openapi-schema';
-import { isStandardSchema } from '@ts-rest/core';
+import { isStandardSchema } from '@skillvue/ts-rest-core';
 
 const expectRes = (res: any) => {
   return expect({ body: res.body, status: res.status });

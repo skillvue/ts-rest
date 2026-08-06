@@ -21,11 +21,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@ts-rest/core': path.resolve(
+      '@skillvue/ts-rest-core': path.resolve(
         __dirname,
         '../../../libs/ts-rest/core/src/index.ts',
       ),
-      '@ts-rest/react-query/v5': path.resolve(
+      '@skillvue/ts-rest-react-query/v5': path.resolve(
         __dirname,
         '../../../libs/ts-rest/react-query-v5/src/v5/index.ts',
       ),

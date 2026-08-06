@@ -4,7 +4,7 @@ import {
   TsRestRequestValidationError,
   TsRestResponseError,
   TsRestResponseValidationError,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { NextApiRequest, NextApiResponse } from 'next';
 import {
   createNextRoute,

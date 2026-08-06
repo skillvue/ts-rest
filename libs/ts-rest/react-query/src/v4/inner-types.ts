@@ -5,7 +5,7 @@ import {
   AppRouteQuery,
   AreAllPropertiesOptional,
   PartialClientInferRequest,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import {
   DataResponse,
   ReactQueryClientArgs,

@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { apiBlog } from '@ts-rest/example-contracts';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { TsRestHandler, tsRestHandler } from '@skillvue/ts-rest-nest';
 import { PostService } from './post.service';
 
 const c = apiBlog;

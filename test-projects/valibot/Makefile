@@ -6,9 +6,9 @@
 # It's as if we've published the package, then import it into a fresh bun project
 setup:
 	bun i
-	rm -rf node_modules/@ts-rest/*
-	mkdir -p node_modules/@ts-rest
-	cp -r ../../dist/libs/ts-rest/* node_modules/@ts-rest/
+	rm -rf node_modules/@skillvue/ts-rest-*
+	mkdir -p node_modules/@skillvue
+	for d in ../../dist/libs/ts-rest/*; do cp -r "$$d" "node_modules/@skillvue/ts-rest-$$(basename "$$d")"; done
 
 e2e:
 	make setup

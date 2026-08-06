@@ -2,7 +2,7 @@ import {
   FetchOptions,
   initContract,
   OverridableClientArgs,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { z } from 'zod';
 import { initNextClient } from './next-client';
 import type { Equal, Expect } from './test-helpers';

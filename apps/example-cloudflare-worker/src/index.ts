@@ -2,7 +2,7 @@ import type {
   Request as WorkerRequest,
   ExecutionContext,
 } from '@cloudflare/workers-types/2023-03-01';
-import { fetchRequestHandler, tsr } from '@ts-rest/serverless/fetch';
+import { fetchRequestHandler, tsr } from '@skillvue/ts-rest-serverless/fetch';
 import { apiBlog, Post } from '@ts-rest/example-contracts';
 
 const mockPostFixtureFactory = (partial: Partial<Post>): Post => ({

@@ -13,7 +13,7 @@ import {
   ErrorHttpStatusCode,
   PartialClientInferRequest,
   SuccessfulHttpStatusCode,
-} from '@ts-rest/core';
+} from '@skillvue/ts-rest-core';
 import { TsRestReactQueryClient } from './react-query';
 
 export interface ReactQueryClientArgs extends ClientArgs {
