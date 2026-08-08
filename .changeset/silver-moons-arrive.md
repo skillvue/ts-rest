@@ -21,5 +21,8 @@ No exported symbol changes because of this: it is a scope change, not a rewrite.
 `@ts-rest/*` packages rather than leaving them installed — npm treats the two scopes as unrelated, so a
 stale `@ts-rest/express` will happily resolve against the new core.
 
+Each package's `repository` now points at `skillvue/tsv-rest` rather than upstream, so the npm page links
+to the fork that actually built it — and so npm's provenance attestation matches the manifest.
+
 The version continues upstream's numbering on purpose, so `4.0` means the same thing in both projects and
 the 3.x → 4.0 migration guide applies either way.

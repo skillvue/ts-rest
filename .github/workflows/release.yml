@@ -4,8 +4,45 @@ on:
     branches:
       - main
 
+# The `verify-*` jobs below are the release gate (VS-062): nothing is published from a commit whose
+# build, unit tests or e2e are red. `build-test.yml` also runs on push to `main`, but it is a *sibling*
+# workflow — it cannot block this one, so a publish could otherwise race a failing test suite. These jobs
+# deliberately use `run-many` rather than `nx affected`: the question at release time is whether the whole
+# release commit is green, not whether the diff since the last commit is.
 jobs:
+  verify-build-test:
+    name: 'Gate: build & test'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec nx run-many --target=build --projects="ts-rest*"
+      # `non-strict-mode-test` is not a `ts-rest*` project, but it is the guard that the public types still
+      # infer correctly for consumers without `strict` — it has to be in the gate explicitly.
+      - run: pnpm exec nx run-many --target=test --projects="ts-rest*,non-strict-mode-test"
+
+  verify-e2e:
+    name: 'Gate: e2e'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - uses: oven-sh/setup-bun@v2
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec nx run-many --target=build --projects="ts-rest*"
+      - name: 'E2E Tests 🧪'
+        run: make e2e
+
   build:
+    needs: [verify-build-test, verify-e2e]
     runs-on: ubuntu-latest
     permissions:
       actions: read
