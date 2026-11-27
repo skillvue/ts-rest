@@ -4,7 +4,9 @@ import { generateOpenApi as generateOpenApiWithTransformer } from './ts-rest-ope
 import { ZOD_SYNC } from './parsers/test-helpers';
 import { SecurityRequirementObject, type OperationObject } from 'openapi3-ts';
 
-type GenerateOpenApiOptions = Parameters<typeof generateOpenApiWithTransformer>[2];
+type GenerateOpenApiOptions = Parameters<
+  typeof generateOpenApiWithTransformer
+>[2];
 
 /**
  * `schemaTransformer` is mandatory since v4 (the zod-3 default was removed — bring your own). This suite
@@ -134,7 +136,7 @@ const router = c.router({
     method: 'POST',
     path: '/media-examples',
     query: z.object({
-      foo: (z.string()).meta({
+      foo: z.string().meta({
         mediaExamples: {
           one: { value: 'foo' },
           two: { value: 'bar' },
@@ -143,14 +145,14 @@ const router = c.router({
     }),
     summary: 'Examples API',
     description: `Check that examples can be added to body and response types`,
-    body: (z.object({ id: z.string() })).meta({
+    body: z.object({ id: z.string() }).meta({
       mediaExamples: {
         one: { value: { id: 'foo' } },
         two: { value: { id: 'bar' } },
       },
     }),
     responses: {
-      200: (z.object({ id: z.string() })).meta({
+      200: z.object({ id: z.string() }).meta({
         mediaExamples: {
           three: { value: { id: 'foo' } },
           four: { value: { id: 'bar' } },
@@ -1169,11 +1171,13 @@ describe('ts-rest-open-api', () => {
     });
 
     it('should extract references by title', () => {
-      const entity = (z.object({
+      const entity = z
+        .object({
           file: z.string(),
-        })).meta({
+        })
+        .meta({
           title: 'Body',
-        },);
+        });
       const routerWithTransform = c.router({
         formEndpoint: {
           method: 'PUT',
@@ -1243,16 +1247,20 @@ describe('ts-rest-open-api', () => {
     });
 
     it('should extract nested references by title', () => {
-      const child = (z.object({
+      const child = z
+        .object({
           file: z.string(),
-        })).meta({
+        })
+        .meta({
           title: 'Child',
-        },);
-      const parent = (z.object({
+        });
+      const parent = z
+        .object({
           child: child,
-        })).meta({
+        })
+        .meta({
           title: 'Parent',
-        },);
+        });
       const routerWithTransform = c.router({
         formEndpoint: {
           method: 'PUT',
@@ -1336,17 +1344,21 @@ describe('ts-rest-open-api', () => {
         formEndpoint: {
           method: 'PUT',
           path: '/title',
-          body: (z.object({
+          body: z
+            .object({
               file: z.string(),
-            })).meta({
+            })
+            .meta({
               title: 'Body',
-            },),
+            }),
           responses: {
-            200: (z.object({
+            200: z
+              .object({
                 otherFile: z.string(),
-              })).meta({
+              })
+              .meta({
                 title: 'Body',
-              },),
+              }),
           },
         },
       });

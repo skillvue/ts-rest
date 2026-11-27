@@ -1,4 +1,7 @@
-import { initContract, TsRestRequestValidationError } from '@skillvue/ts-rest-core';
+import {
+  initContract,
+  TsRestRequestValidationError,
+} from '@skillvue/ts-rest-core';
 import {
   TsRestException,
   tsRestHandler,

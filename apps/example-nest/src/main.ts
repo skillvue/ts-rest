@@ -2,7 +2,10 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { apiBlog } from '@ts-rest/example-contracts';
-import { generateOpenApi, SchemaTransformerAsync } from '@skillvue/ts-rest-open-api';
+import {
+  generateOpenApi,
+  SchemaTransformerAsync,
+} from '@skillvue/ts-rest-open-api';
 import cors = require('cors');
 import convert from '@openapi-contrib/json-schema-to-openapi-schema';
 import { AppModule } from './app/app.module';

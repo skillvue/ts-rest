@@ -1,4 +1,8 @@
-import { AppRoute, isStandardSchema, StandardSchemaV1 } from '@skillvue/ts-rest-core';
+import {
+  AppRoute,
+  isStandardSchema,
+  StandardSchemaV1,
+} from '@skillvue/ts-rest-core';
 import {
   AsyncAndSyncHelper,
   GetAsyncFunction,
