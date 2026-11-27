@@ -126,7 +126,6 @@ describe('/posts', () => {
           expected: 'string',
           message: 'Invalid input: expected string, received undefined',
           path: ['content'],
-          received: 'undefined',
         },
       ],
       name: 'ValidationError',
