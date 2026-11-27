@@ -1,5 +1,86 @@
 # @ts-rest/next
 
+## 4.0.0-rc.0
+
+### Major Changes
+
+- 8ca499f: Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.
+
+  **This is breaking: Zod 3 is no longer supported.** Zod 3 predates Standard Schema, so it cannot be
+  validated through the new interface, and `zod` was removed even as an optional peer dependency — add it to
+  your own dependencies explicitly. Upgrade to Zod 4 (contract code is largely unchanged) or adopt Valibot /
+  ArkType. Using no validator at all is now a supported configuration.
+
+  Two further breaking consequences:
+
+  - **The `headers` DSL is a record keyed by header name**, not one schema over the whole headers object:
+    `headers: z.object({ 'x-foo': s })` becomes `headers: { 'x-foo': s }`, and likewise for `baseHeaders`.
+    Merging is a plain spread with route precedence, a `null` value unsets an inherited header, and each
+    header validates against its own schema so issues are re-keyed by header name.
+  - **Request and response validation errors are `StandardSchemaError`, not `ZodError`** — a flat `.issues`
+    array with no `.flatten()` / `.format()`, and `name === 'ValidationError'`. Anything asserting on a 400
+    body from a server adapter, or catching a client-side response-validation error, must be updated. The
+    Zod-shaped `*ErrorSchema` exports (`ZodErrorSchema`, `RequestValidationErrorSchema` and its variants,
+    `DefaultRequestValidationErrorSchema`, `CombinedRequestValidationErrorSchema`) are removed with no
+    replacement, as is the whole `zod-utils` surface (`checkZodSchema`, `isZodType`, `zodMerge`, …).
+
+  Validation is synchronous: a schema that returns a Promise throws `Schema validation must be synchronous`.
+
+  See the v4 migration guide for before/after code on each point.
+
+- 2f00998: Publish under the `@skillvue` scope: every `@ts-rest/<name>` package is now `@skillvue/ts-rest-<name>`.
+
+  `4.0.0` ships from the skillvue fork, so the packages move with it. Subpath exports keep their suffix —
+  `@skillvue/ts-rest-serverless/aws`, `/azure`, `/fetch`, `/next`, and `@skillvue/ts-rest-react-query/v5`.
+
+  No exported symbol changes because of this: it is a scope change, not a rewrite. Uninstall the old
+  `@ts-rest/*` packages rather than leaving them installed — npm treats the two scopes as unrelated, so a
+  stale `@ts-rest/express` will happily resolve against the new core.
+
+  Each package's `repository` now points at `skillvue/ts-rest` rather than upstream, so the npm page links
+  to the fork that actually built it — and so npm's provenance attestation matches the manifest.
+
+  The version continues upstream's numbering on purpose, so `4.0` means the same thing in both projects and
+  the 3.x → 4.0 migration guide applies either way.
+
+- aefe6b3: Finish decoupling from zod: no `@ts-rest` package imports `zod` any more.
+
+  v4 validates through Standard Schema, so nothing produced a `ZodError` and nothing needed zod's types —
+  but four leftovers still made zod a compile-time dependency of the core packages:
+
+  - `@skillvue/ts-rest-core` — `validateMultiSchemaObject` and `validateAgainstStandardSchema` declared
+    `error?: StandardSchemaError | ZodError`. The `ZodError` arm was unreachable; both now return
+    `StandardSchemaError`, and the casts it forced on every adapter are gone.
+  - `@skillvue/ts-rest-core` — `SchemaOutputOrType` / `SchemaInputOrType` carried a `T extends z.ZodTypeAny` arm
+    ahead of the Standard Schema arm, to keep inferring from **zod 3** schemas (which predate Standard
+    Schema). zod 4 schemas expose `~standard`, so the arm was unreachable. **Breaking:** the deprecated
+    `ZodInferOrType` / `ZodInputOrType` aliases are removed — use `SchemaOutputOrType` /
+    `SchemaInputOrType`. Inference for zod 4 schemas is unchanged.
+  - `@skillvue/ts-rest-next` — the deprecated `RequestValidationError`, whose four fields were typed `ZodError`, is
+    removed as its own doc comment promised. **Breaking:** use `TsRestRequestValidationError`, which
+    `@skillvue/ts-rest-next` re-exports and which carries `StandardSchemaError` fields.
+  - `@skillvue/ts-rest-open-api` — dropped the `@anatine/zod-openapi` dependency (a **zod 3** library, unreferenced
+    since the `schemaTransformer` design landed) and the `zod` peer dependency. zod now appears only in a
+    spec-only file, excluded from the build. **Breaking** for anyone relying on zod arriving transitively.
+
+  Note that `@skillvue/ts-rest-core` never declared zod as a dependency or peer dependency while importing it, so
+  these imports resolved only by accident of the consumer's own dependency tree.
+
+### Patch Changes
+
+- 7e51c7a: Make `instanceof TsRestRequestValidationError` work in every server adapter.
+
+  Each adapter has to extend a different framework base class, so none of them could extend the core error:
+  nest threw a `BadRequestException` subclass, next declared its own identically-named class, and express
+  threw `RequestValidationError`. A `@Catch()` filter or error handler checking the core class therefore saw
+  `false` and fell through to a 500. The core class now recognises a `Symbol.for`-based brand that the
+  adapters carry.
+
+  Also fixes `@skillvue/ts-rest-serverless` answering `500 Server Error` instead of `400` for _every_ failed request
+  validation: it threw core's plain-`Error` class, which its error handler maps to a 500.
+
+- d4ee447: fix: nextjs query params polute reading path params
+
 ## 3.52.1
 
 ## 3.52.0

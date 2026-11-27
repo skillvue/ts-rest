@@ -1,5 +1,99 @@
 # @ts-rest/open-api
 
+## 4.0.0-rc.0
+
+### Major Changes
+
+- 8ca499f: Add support for custom schema transformers to work with standard schema update in 3.53.0
+
+  **Breaking: `schemaTransformer` is now required.** A validator-agnostic generator cannot know how to turn
+  your schemas into JSON Schema, so `generateOpenApi` / `generateOpenApiAsync` take a mandatory third
+  `options` argument carrying it. There is no default.
+
+  Do **not** reach for `@anatine/zod-openapi` — it is a Zod 3 library and throws on Zod 4 schemas. For Zod 4,
+  wrap zod's own `z.toJSONSchema(schema, { target: 'openapi-3.0' })`; the migration guide has a
+  copy-pasteable transformer.
+
+  Header parameters are also now derived from the per-header record DSL rather than one merged object schema,
+  so regenerate your document and diff it rather than assuming it is unchanged.
+
+- 8ca499f: Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.
+
+  **This is breaking: Zod 3 is no longer supported.** Zod 3 predates Standard Schema, so it cannot be
+  validated through the new interface, and `zod` was removed even as an optional peer dependency — add it to
+  your own dependencies explicitly. Upgrade to Zod 4 (contract code is largely unchanged) or adopt Valibot /
+  ArkType. Using no validator at all is now a supported configuration.
+
+  Two further breaking consequences:
+
+  - **The `headers` DSL is a record keyed by header name**, not one schema over the whole headers object:
+    `headers: z.object({ 'x-foo': s })` becomes `headers: { 'x-foo': s }`, and likewise for `baseHeaders`.
+    Merging is a plain spread with route precedence, a `null` value unsets an inherited header, and each
+    header validates against its own schema so issues are re-keyed by header name.
+  - **Request and response validation errors are `StandardSchemaError`, not `ZodError`** — a flat `.issues`
+    array with no `.flatten()` / `.format()`, and `name === 'ValidationError'`. Anything asserting on a 400
+    body from a server adapter, or catching a client-side response-validation error, must be updated. The
+    Zod-shaped `*ErrorSchema` exports (`ZodErrorSchema`, `RequestValidationErrorSchema` and its variants,
+    `DefaultRequestValidationErrorSchema`, `CombinedRequestValidationErrorSchema`) are removed with no
+    replacement, as is the whole `zod-utils` surface (`checkZodSchema`, `isZodType`, `zodMerge`, …).
+
+  Validation is synchronous: a schema that returns a Promise throws `Schema validation must be synchronous`.
+
+  See the v4 migration guide for before/after code on each point.
+
+- 2f00998: Publish under the `@skillvue` scope: every `@ts-rest/<name>` package is now `@skillvue/ts-rest-<name>`.
+
+  `4.0.0` ships from the skillvue fork, so the packages move with it. Subpath exports keep their suffix —
+  `@skillvue/ts-rest-serverless/aws`, `/azure`, `/fetch`, `/next`, and `@skillvue/ts-rest-react-query/v5`.
+
+  No exported symbol changes because of this: it is a scope change, not a rewrite. Uninstall the old
+  `@ts-rest/*` packages rather than leaving them installed — npm treats the two scopes as unrelated, so a
+  stale `@ts-rest/express` will happily resolve against the new core.
+
+  Each package's `repository` now points at `skillvue/ts-rest` rather than upstream, so the npm page links
+  to the fork that actually built it — and so npm's provenance attestation matches the manifest.
+
+  The version continues upstream's numbering on purpose, so `4.0` means the same thing in both projects and
+  the 3.x → 4.0 migration guide applies either way.
+
+- aefe6b3: Finish decoupling from zod: no `@ts-rest` package imports `zod` any more.
+
+  v4 validates through Standard Schema, so nothing produced a `ZodError` and nothing needed zod's types —
+  but four leftovers still made zod a compile-time dependency of the core packages:
+
+  - `@skillvue/ts-rest-core` — `validateMultiSchemaObject` and `validateAgainstStandardSchema` declared
+    `error?: StandardSchemaError | ZodError`. The `ZodError` arm was unreachable; both now return
+    `StandardSchemaError`, and the casts it forced on every adapter are gone.
+  - `@skillvue/ts-rest-core` — `SchemaOutputOrType` / `SchemaInputOrType` carried a `T extends z.ZodTypeAny` arm
+    ahead of the Standard Schema arm, to keep inferring from **zod 3** schemas (which predate Standard
+    Schema). zod 4 schemas expose `~standard`, so the arm was unreachable. **Breaking:** the deprecated
+    `ZodInferOrType` / `ZodInputOrType` aliases are removed — use `SchemaOutputOrType` /
+    `SchemaInputOrType`. Inference for zod 4 schemas is unchanged.
+  - `@skillvue/ts-rest-next` — the deprecated `RequestValidationError`, whose four fields were typed `ZodError`, is
+    removed as its own doc comment promised. **Breaking:** use `TsRestRequestValidationError`, which
+    `@skillvue/ts-rest-next` re-exports and which carries `StandardSchemaError` fields.
+  - `@skillvue/ts-rest-open-api` — dropped the `@anatine/zod-openapi` dependency (a **zod 3** library, unreferenced
+    since the `schemaTransformer` design landed) and the `zod` peer dependency. zod now appears only in a
+    spec-only file, excluded from the build. **Breaking** for anyone relying on zod arriving transitively.
+
+  Note that `@skillvue/ts-rest-core` never declared zod as a dependency or peer dependency while importing it, so
+  these imports resolved only by accident of the consumer's own dependency tree.
+
+### Minor Changes
+
+- a431618: Add operation ID parameter to operationMapper function, allowing using the appRoute's id in the callback.
+
+### Patch Changes
+
+- e0c469b: Support `c.otherResponse()` when generating OpenAPI schema
+- 7e51c7a: Fix two regressions that produced invalid or incomplete OpenAPI documents:
+
+  - `description` was missing from every Response Object. OpenAPI 3 requires it; it now falls back to the
+    status code as before, and an explicit description on the response schema is used when present.
+  - `generateOpenApi` emitted no `header` parameters at all. Each per-header schema was fed to a helper that
+    only walks object properties, so scalar header schemas produced nothing and the header name was dropped.
+    `generateOpenApiAsync` was unaffected.
+
 ## 3.52.1
 
 ## 3.52.0

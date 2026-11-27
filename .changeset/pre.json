@@ -14,5 +14,24 @@
     "@skillvue/ts-rest-solid-query": "3.52.1",
     "@skillvue/ts-rest-vue-query": "3.52.1"
   },
-  "changesets": []
+  "changesets": [
+    "big-camels-complain",
+    "brave-otters-recover",
+    "cuddly-lions-buy",
+    "giant-dragons-burn",
+    "khaki-scissors-doubt",
+    "lemon-tigers-depart",
+    "lucky-pandas-listen",
+    "new-berries-camp",
+    "odd-papayas-happen",
+    "plenty-seahorses-wait",
+    "proud-hawks-rename",
+    "quiet-headers-keep",
+    "rare-elephants-itch",
+    "rich-coins-move",
+    "shy-vans-float",
+    "silver-moons-arrive",
+    "soft-dolls-leave",
+    "wild-donkeys-wander"
+  ]
 }
