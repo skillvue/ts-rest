@@ -933,3 +933,18 @@ describe('UnknownOrUndefinedObjectValuesToOptionalKeys', () => {
     type Assert = Expect<Equal<Actual, {}>>;
   });
 });
+
+describe('ServerInferRequest headers', () => {
+  it('keeps branded header values as they are', () => {
+    const route = c.router({
+      get: {
+        method: 'GET',
+        path: '/',
+        headers: { 'x-api-key': z.string().brand('UUID') },
+        responses: { 200: z.null() },
+      },
+    });
+    type Actual = ServerInferRequest<typeof route.get>['headers']['x-api-key'];
+    type Assert = Expect<Equal<Actual, string & z.BRAND<'UUID'>>>;
+  });
+});
