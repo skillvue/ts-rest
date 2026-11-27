@@ -7,7 +7,10 @@ import {
 } from '@skillvue/ts-rest-core';
 import { apiBlog, contractTs } from '@ts-rest/example-contracts';
 import { createExpressEndpoints, initServer } from '@skillvue/ts-rest-express';
-import { generateOpenApi, SchemaTransformerAsync } from '@skillvue/ts-rest-open-api';
+import {
+  generateOpenApi,
+  SchemaTransformerAsync,
+} from '@skillvue/ts-rest-open-api';
 import * as bodyParser from 'body-parser';
 import { Request, Response, NextFunction } from 'express';
 import { serve, setup } from 'swagger-ui-express';

@@ -40,7 +40,9 @@ type ZodTransformedInput = Expect<
 >;
 
 const zodCoerced = z.coerce.number();
-type ZodCoercedOutput = Expect<Equal<SchemaOutputOrType<typeof zodCoerced>, number>>;
+type ZodCoercedOutput = Expect<
+  Equal<SchemaOutputOrType<typeof zodCoerced>, number>
+>;
 
 // A plain type is passed through untouched — it is not a schema.
 type PlainPassThrough = Expect<
@@ -49,7 +51,10 @@ type PlainPassThrough = Expect<
 
 // The contract marker types resolve ahead of the schema arms.
 type PlainContractType = Expect<
-  Equal<SchemaOutputOrType<ReturnType<typeof c.type<{ title: string }>>>, { title: string }>
+  Equal<
+    SchemaOutputOrType<ReturnType<typeof c.type<{ title: string }>>>,
+    { title: string }
+  >
 >;
 type NullContractType = Expect<
   Equal<SchemaOutputOrType<ReturnType<typeof c.type<null>>>, null>

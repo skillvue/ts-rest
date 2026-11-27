@@ -1,6 +1,9 @@
 import { app } from '@azure/functions';
 import { Post, apiBlog } from '@ts-rest/example-contracts';
-import { createAzureFunctionHandler, tsr } from '@skillvue/ts-rest-serverless/azure';
+import {
+  createAzureFunctionHandler,
+  tsr,
+} from '@skillvue/ts-rest-serverless/azure';
 
 const mockPostFixtureFactory = (partial: Partial<Post>): Post => ({
   id: 'mock-id',
