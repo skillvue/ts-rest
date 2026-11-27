@@ -35,9 +35,9 @@ describe('Posts Endpoints', () => {
         {
           code: 'invalid_type',
           expected: 'number',
-          message: 'Invalid input: expected string, received undefined',
+          message: 'Invalid input: expected number, received NaN',
           path: ['x-pagination'],
-          received: 'nan',
+          received: 'NaN',
         },
       ],
       name: 'ValidationError',
@@ -53,12 +53,11 @@ describe('Posts Endpoints', () => {
         {
           code: 'invalid_type',
           expected: 'string',
-          message: 'Required',
+          message: 'Invalid input: expected string, received undefined',
           path: ['take'],
-          received: 'undefined',
         },
       ],
-      name: 'ZodError',
+      name: 'ValidationError',
     });
   });
 
@@ -74,12 +73,11 @@ describe('Posts Endpoints', () => {
         {
           code: 'invalid_type',
           expected: 'string',
-          message: 'Expected string, received number',
+          message: 'Invalid input: expected string, received number',
           path: ['content'],
-          received: 'number',
         },
       ],
-      name: 'ZodError',
+      name: 'ValidationError',
     });
   });
 
@@ -92,12 +90,11 @@ describe('Posts Endpoints', () => {
         {
           code: 'invalid_type',
           expected: 'string',
-          message: 'Required',
+          message: 'Invalid input: expected string, received undefined',
           path: ['x-api-key'],
-          received: 'undefined',
         },
       ],
-      name: 'ZodError',
+      name: 'ValidationError',
     });
   });
 
