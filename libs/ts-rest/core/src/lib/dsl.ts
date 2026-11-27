@@ -229,7 +229,7 @@ export type InferHeadersOutput<
   THeaders extends Record<string, ContractAnyType>
   ? {
       [K in keyof THeaders]: THeaders[K] extends ContractAnyType
-        ? LowercaseKeys<SchemaOutputOrType<THeaders[K]>>
+        ? SchemaOutputOrType<THeaders[K]>
         : never;
     }
   : '3';
