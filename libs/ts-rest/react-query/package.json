@@ -1,6 +1,6 @@
 {
   "name": "@skillvue/ts-rest-react-query",
-  "version": "3.52.1",
+  "version": "4.0.0-rc.0",
   "private": false,
   "description": "react-query client integration for @ts-rest",
   "keywords": [

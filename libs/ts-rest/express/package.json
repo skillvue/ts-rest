@@ -1,6 +1,6 @@
 {
   "name": "@skillvue/ts-rest-express",
-  "version": "3.52.1",
+  "version": "4.0.0-rc.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/skillvue/ts-rest.git",

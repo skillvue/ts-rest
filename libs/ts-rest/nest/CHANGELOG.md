@@ -1,5 +1,71 @@
 # @ts-rest/nest
 
+## 4.0.0-rc.0
+
+### Major Changes
+
+- 9e0aad9: Remove the legacy `initNestServer` / decorator API. `@TsRestHandler` + `tsRestHandler` is the only supported
+  style.
+
+  Removed exports: `initNestServer`, `NestControllerContract`, `NestControllerInterface`, `NestRequestShapes`,
+  `NestResponseShapes`, the `@TsRest()` and `@Api()` method decorators, and the `@TsRestRequest()` param
+  decorator. `TsRestRequestShape` still exists, now defined as
+  `ServerInferRequest<TRoute, Request['headers']>` in `ts-rest-nest-handler`.
+
+  The migration guide has the before/after for a controller.
+
+- 8ca499f: Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.
+
+  **This is breaking: Zod 3 is no longer supported.** Zod 3 predates Standard Schema, so it cannot be
+  validated through the new interface, and `zod` was removed even as an optional peer dependency — add it to
+  your own dependencies explicitly. Upgrade to Zod 4 (contract code is largely unchanged) or adopt Valibot /
+  ArkType. Using no validator at all is now a supported configuration.
+
+  Two further breaking consequences:
+
+  - **The `headers` DSL is a record keyed by header name**, not one schema over the whole headers object:
+    `headers: z.object({ 'x-foo': s })` becomes `headers: { 'x-foo': s }`, and likewise for `baseHeaders`.
+    Merging is a plain spread with route precedence, a `null` value unsets an inherited header, and each
+    header validates against its own schema so issues are re-keyed by header name.
+  - **Request and response validation errors are `StandardSchemaError`, not `ZodError`** — a flat `.issues`
+    array with no `.flatten()` / `.format()`, and `name === 'ValidationError'`. Anything asserting on a 400
+    body from a server adapter, or catching a client-side response-validation error, must be updated. The
+    Zod-shaped `*ErrorSchema` exports (`ZodErrorSchema`, `RequestValidationErrorSchema` and its variants,
+    `DefaultRequestValidationErrorSchema`, `CombinedRequestValidationErrorSchema`) are removed with no
+    replacement, as is the whole `zod-utils` surface (`checkZodSchema`, `isZodType`, `zodMerge`, …).
+
+  Validation is synchronous: a schema that returns a Promise throws `Schema validation must be synchronous`.
+
+  See the v4 migration guide for before/after code on each point.
+
+- 2f00998: Publish under the `@skillvue` scope: every `@ts-rest/<name>` package is now `@skillvue/ts-rest-<name>`.
+
+  `4.0.0` ships from the skillvue fork, so the packages move with it. Subpath exports keep their suffix —
+  `@skillvue/ts-rest-serverless/aws`, `/azure`, `/fetch`, `/next`, and `@skillvue/ts-rest-react-query/v5`.
+
+  No exported symbol changes because of this: it is a scope change, not a rewrite. Uninstall the old
+  `@ts-rest/*` packages rather than leaving them installed — npm treats the two scopes as unrelated, so a
+  stale `@ts-rest/express` will happily resolve against the new core.
+
+  Each package's `repository` now points at `skillvue/ts-rest` rather than upstream, so the npm page links
+  to the fork that actually built it — and so npm's provenance attestation matches the manifest.
+
+  The version continues upstream's numbering on purpose, so `4.0` means the same thing in both projects and
+  the 3.x → 4.0 migration guide applies either way.
+
+### Patch Changes
+
+- 7e51c7a: Make `instanceof TsRestRequestValidationError` work in every server adapter.
+
+  Each adapter has to extend a different framework base class, so none of them could extend the core error:
+  nest threw a `BadRequestException` subclass, next declared its own identically-named class, and express
+  threw `RequestValidationError`. A `@Catch()` filter or error handler checking the core class therefore saw
+  `false` and fell through to a 500. The core class now recognises a `Symbol.for`-based brand that the
+  adapters carry.
+
+  Also fixes `@skillvue/ts-rest-serverless` answering `500 Server Error` instead of `400` for _every_ failed request
+  validation: it threw core's plain-`Error` class, which its error handler maps to a 500.
+
 ## 3.52.1
 
 ## 3.52.0
