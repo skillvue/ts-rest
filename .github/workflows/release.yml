@@ -60,6 +60,15 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
 
+      # Trusted publishing (OIDC) needs npm >= 11.5.1; Node 24 ships npm 11. Pinned rather than relying on the
+      # runner's default Node. No `registry-url`: it would inject NODE_AUTH_TOKEN and shadow the OIDC exchange.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Check npm supports trusted publishing
+        run: npx --yes semver@7 -r '>=11.5.1' "$(npm --version)"
+
       - name: Get pnpm store directory
         id: pnpm-cache
         run: echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
@@ -109,6 +118,4 @@ jobs:
           githubTagName: v${{ steps.release-version.outputs.current-version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
