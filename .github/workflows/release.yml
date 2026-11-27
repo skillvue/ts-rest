@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - v4
 
 # The `verify-*` jobs below are the release gate (VS-062): nothing is published from a commit whose
 # build, unit tests or e2e are red. `build-test.yml` also runs on push to `main`, but it is a *sibling*

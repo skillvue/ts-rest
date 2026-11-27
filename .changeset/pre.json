@@ -1,0 +1,18 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "@skillvue/ts-rest-core": "3.52.1",
+    "@skillvue/ts-rest-express": "3.52.1",
+    "@skillvue/ts-rest-fastify": "3.52.1",
+    "@skillvue/ts-rest-nest": "3.52.1",
+    "@skillvue/ts-rest-next": "3.52.1",
+    "@skillvue/ts-rest-open-api": "3.52.1",
+    "@skillvue/ts-rest-react-query": "3.52.1",
+    "@skillvue/ts-rest-react-query-v5": "3.52.1",
+    "@skillvue/ts-rest-serverless": "3.52.1",
+    "@skillvue/ts-rest-solid-query": "3.52.1",
+    "@skillvue/ts-rest-vue-query": "3.52.1"
+  },
+  "changesets": []
+}
