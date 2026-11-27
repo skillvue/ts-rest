@@ -3,7 +3,7 @@
   "version": "3.52.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skillvue/tsv-rest.git",
+    "url": "https://github.com/skillvue/ts-rest.git",
     "directory": "libs/ts-rest/fastify"
   },
   "license": "MIT",
